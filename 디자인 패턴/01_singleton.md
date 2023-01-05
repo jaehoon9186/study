@@ -42,7 +42,7 @@ TDD(Test Driven Development)를 할 때 걸림돌이 된다. TDD는 주로 단�
 ## 의존성 주입 
 싱글톤은 사용하기가 쉽고 굉장히 실용적이지만 모듈 간의 결함을 강하게 만들 수 있다는 단점이 있다. 
 이때 의존성 주입(DI, Dependency Injection)을 통해 모듈 간의 결합을 조금 더 느슨하게 만들어 해결할 수 있다.  
-[의존성]()  
+[의존성](https://github.com/jaehoon9186/study/blob/main/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5/%EC%9D%98%EC%A1%B4%EC%84%B1(Dependency).md)  
 
 
 
