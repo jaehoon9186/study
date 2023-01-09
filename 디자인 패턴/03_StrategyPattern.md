@@ -106,7 +106,7 @@ let 지우의피카츄 = 피카츄(공격전략: 몸통박치기())
 Strategy를 추가하거나 수정할 때 다른 코드를 수정할 일이 없으므로 SOLID 법칙의 OCP(Open-Closed Principle, 개방-폐쇄 원칙)를 지킬 수 있음  
 각각의 알고리즘들은 모두 Strategy 프로토콜을 따르는 클래스로 따로 구현되기 때문에, Strategy를 사용하는 객체는 책임을 줄일 수 있음  
 비즈니스 로직과 구체적인 알고리즘 구현부를 분리할 수 있음  
-SRP(Single Responsibility Principle, 단일책임원칙)을 따를 수 있게 됨
+SRP(Single Responsibility Principle, 단일책임원칙)을 따를 수 있게 됨  
 책임을 분리하여 테스트에도 용이
 
 
