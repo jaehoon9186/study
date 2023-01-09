@@ -81,8 +81,12 @@ class 기상퍼블리셔 {
     var 기상: 기상이넘 = 기상이넘.일반 {
         didSet {
             print(기상, "으로 날씨 변경 ")
-            for 포켓몬 in 포켓몬들 {
-                포켓몬.update(기상: 기상)
+//            for 포켓몬 in 포켓몬들 {
+//                포켓몬.update(기상: self.기상)
+//            }
+
+            포켓몬들.forEach {
+                $0.update(기상: self.기상)
             }
 
         }
