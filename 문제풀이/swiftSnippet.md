@@ -23,6 +23,10 @@ Line().
 ```swift
 var listOne: [Int] = []
 
+//초기값이 있는 배열 초기화
+var trueArray = Array(repeating: true, count: 5)
+// > [true, true, true, true, true]
+
 // 2차원 배열
 var board: [[Int]] = []
 // board.append([Int]) 인티저배열을 append한다. 
