@@ -86,7 +86,7 @@ String(문자열.reversed())
 map을 활용해 배열 속성 변환
 ```swift
 let stringNumbers = ["1", "2", "3", "4", "5"]
-let numbers = stringNumbers.map{ Int($0)! }
+let numbers = stringNumbers.map { Int($0)! }
 print(numbers) // [1, 2, 3, 4, 5]
 ```
 
