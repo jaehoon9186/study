@@ -81,7 +81,14 @@ for (key, value) in 딕셔너리 {
 String(문자열.reversed())
 ```
 
-# 함수
+# 고차함수
+### map
+map을 활용해 배열 속성 변환
+```swift
+let stringNumbers = ["1", "2", "3", "4", "5"]
+let numbers = stringNumbers.map{ Int($0)! }
+print(numbers) // [1, 2, 3, 4, 5]
+```
 
 # 기타
 ### 최대 공약수(gcd), 최소 공배수(lcm)
