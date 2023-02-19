@@ -80,6 +80,16 @@ for (key, value) in 딕셔너리 {
 ```swift
 String(문자열.reversed())
 ```
+### 문자열 분리
+```swift
+let string = "1 2 3"
+print(string.split(separator: " "))
+
+// Foundation 프레임워크 사용
+print(string.components(separatedBy: " "))
+
+// split()이 더 빠르다.
+```
 
 # 고차함수
 ### map
