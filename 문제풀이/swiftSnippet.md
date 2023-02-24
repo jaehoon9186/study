@@ -99,6 +99,17 @@ let stringNumbers = ["1", "2", "3", "4", "5"]
 let numbers = stringNumbers.map { Int($0)! }
 print(numbers) // [1, 2, 3, 4, 5]
 ```
+### reduce
+reduce를 이용해 배열 덧셈
+
+```swift
+let numbers = [1, 2, 3, 4]
+let numberSum = numbers.reduce(0, { x, y in
+    x + y
+}) // numbers.reduce(0) { $0 + $1 }
+
+// numberSum == 10
+```
 
 # 기타
 ### 최대 공약수(gcd), 최소 공배수(lcm)
