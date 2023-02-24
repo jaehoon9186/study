@@ -90,6 +90,13 @@ print(string.components(separatedBy: " "))
 
 // split()이 더 빠르다.
 ```
+문자열을 한글자씩
+```swift
+// char 형식으로 배열이 생성된다. 필요하다면 캐스팅할 것
+"123".map { $0 }
+Array("123")
+// Array() 생성자가 아닌 ["123"] 으로는 생성 불가 그냥 요소 하나 있는 배열
+```
 
 # 고차함수
 ### map
