@@ -31,6 +31,12 @@ var board: [[Int]] = []
 // board.append([Int]) 인티저배열을 append한다. 
 
 ```
+### 정렬
+```swift
+var arr = [1,3,2,4]
+arr.sort() // 원본 배열 정렬
+let sortedArr = arr.sorted() // 새로운 배열을 만들어 정렬후 리턴
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
