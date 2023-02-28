@@ -66,6 +66,8 @@ let temp2 = count.sorted(by: {
     }
     return $0.1 > $1.1
 })
+
+// dict.sorted { ($0.value, $0.key) > ($1.value, $1.key) } // 이렇게도 가능한가
 ```
 
 
