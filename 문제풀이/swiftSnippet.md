@@ -42,6 +42,7 @@ let sortedArr = arr.sorted() // 새로운 배열을 만들어 정렬후 리턴
 ### 딕셔너리 초기화
 ```swift
 var tempDict: [Int: Int] = [:]
+vat dict21 : Dictionary<Int, Int>()
 
 // 초기값을 정해 업데이트 하기
 tempDict[j, default: 0] += 1
