@@ -47,6 +47,26 @@ vat dict21 : Dictionary<Int, Int>()
 // 초기값을 정해 업데이트 하기
 tempDict[j, default: 0] += 1
 ```
+### 딕셔너리 정렬
+```swift
+// 키순(오름차순)
+count.sorted(by: { $0.0 < $1.0 })
+
+// 딕셔너리[Int, Int]를 벨류, 키 순으로 내림차순 정렬
+let temp = count.sorted(by: { (first, second) -> Bool in
+    if first.value == second.value {
+        return first.key > second.key
+    }
+    return first.value > second.value
+} )
+// 클로저 경량문법
+let temp2 = count.sorted(by: {
+    if $0.1 == $1.1 {
+        return $0.0 > $1.0
+    }
+    return $0.1 > $1.1
+})
+```
 
 
 # 반복문
