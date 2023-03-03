@@ -37,6 +37,16 @@ var arr = [1,3,2,4]
 arr.sort() // 원본 배열 정렬
 let sortedArr = arr.sorted() // 새로운 배열을 만들어 정렬후 리턴
 ```
+### 타겟의 첫 인덱스 찾기
+```swift
+// arr = [1, 2, 3], target = 3
+if let index = arr.firstIndex(of: target) {
+    print(index)
+} else {
+    print(0)
+}
+// 마지막 인덱스는 lastIndex(of: )
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
