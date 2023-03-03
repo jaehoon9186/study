@@ -105,6 +105,11 @@ for (key, value) in 딕셔너리 {
 ```
 
 # 문자열
+### 문자열 초기화
+```swift
+// 반복
+let stirng = String(repeating: " 내용 ", count: 2) 
+```
 ### 문자열 뒤집기
 ```swift
 String(문자열.reversed())
