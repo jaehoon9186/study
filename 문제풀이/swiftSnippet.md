@@ -172,6 +172,15 @@ let numberSum = numbers.reduce(0, { x, y in
 // numberSum == 10
 ```
 
+### filter
+조건에 맞는 배열을 리턴. 
+```swift
+let cast = ["Vivien", "Marlon", "Kim", "Karl"]
+let shortNames = cast.filter { $0.count < 5 }
+print(shortNames)
+// Prints "["Kim", "Karl"]"
+```
+
 # 기타
 ### 최대 공약수(gcd), 최소 공배수(lcm)
 ```swift
