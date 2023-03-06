@@ -141,6 +141,11 @@ print(string.components(separatedBy: " "))
 Array("123")
 // Array() 생성자가 아닌 ["123"] 으로는 생성 불가 그냥 요소 하나 있는 배열
 ```
+### 문자열 합치기
+```swift
+let arr = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ"]
+print(arr.joined(separator: "*"))
+```
 
 ### 여러줄
 ```swift
