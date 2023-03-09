@@ -26,6 +26,9 @@ var listOne: [Int] = []
 var trueArray = Array(repeating: true, count: 5)
 // > [true, true, true, true, true]
 
+// 이터레이터한 숫자를 활용해 배열만들기
+let numbers = Array<Int>(2...5) // [2,3,4,5]
+
 // 2차원 배열
 var board: [[Int]] = []
 // board.append([Int]) 인티저배열을 append한다. 
@@ -46,6 +49,11 @@ if let index = arr.firstIndex(of: target) {
     print(0)
 }
 // 마지막 인덱스는 lastIndex(of: )
+```
+### 배열의 포함여부 확인
+```swift
+// arr = [1,2,3,4] target = 2
+arr.contains(target) // true
 ```
 
 # 딕셔너리 
