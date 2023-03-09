@@ -59,6 +59,10 @@ arr.contains(target) // true
 ```swift
 [0,1,2,3,4].swapAt(0, 4) // [4,1,2,3,0] 0번 인덱스와 4번인덱스 값 스왑
 ```
+### 배열 일부 교체 replace
+```swift
+arr.replaceSubrange(i...j, with: arr[i...j].reversed())
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
