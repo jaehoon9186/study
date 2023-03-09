@@ -55,6 +55,10 @@ if let index = arr.firstIndex(of: target) {
 // arr = [1,2,3,4] target = 2
 arr.contains(target) // true
 ```
+### 한 배열내의 값 교환하기 스왑하기
+```swift
+[0,1,2,3,4].swapAt(0, 4) // [4,1,2,3,0] 0번 인덱스와 4번인덱스 값 스왑
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
