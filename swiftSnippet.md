@@ -178,6 +178,10 @@ let string = """
 // swift에서는 str[인덱스번호] 형식으로 찾는게 불가하다 왜?
 // how?
 str[str.index(str.startIndex, offsetBy: 3)]
+
+// 첫, 마지막
+str.first
+str.last
 ```
 
 
