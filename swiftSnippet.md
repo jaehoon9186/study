@@ -173,6 +173,14 @@ let string = """
 // 개행문자 제거시 줄 끝단에 \
 ```
 
+### 인덱스로 문자
+```swift
+// swift에서는 str[인덱스번호] 형식으로 찾는게 불가하다 왜?
+// how?
+str[str.index(str.startIndex, offsetBy: 3)]
+```
+
+
 # 고차함수
 ### map
 map을 활용해 배열 속성 변환
