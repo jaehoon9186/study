@@ -63,6 +63,14 @@ arr.contains(target) // true
 ```swift
 arr.replaceSubrange(i...j, with: arr[i...j].reversed())
 ```
+### arraySlice
+```swift
+//  buckets = [1,2,3,4,5,6,7,8,9,10]
+let slice = buckets[..<i] + buckets[k...j] + buckets[i..<k] + buckets[(j+1)...]
+
+// 다시 배열로 쓰기 위해서
+buckets = Array(slice)
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
