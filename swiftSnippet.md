@@ -233,6 +233,30 @@ print(shortNames)
 ```
 
 # 기타
+### 소수점
+```swift
+import Foundation 
+
+// 소수점 이하 올림
+ceil(12.1)
+
+// 소수점 이하 버림
+floor(12.2)
+
+// 소수점이하 반올림 (.5 올림, 0.4 버림)
+round(10.5) // 11
+round(10.4445) // 10 
+
+// String(Format:,_arguments:)
+String(format: "%.3f", 100.55555) // 100.556
+
+// Format에 사용되는 Format Specifier ?
+
+
+
+```
+
+
 ### 스왑
 ```swift
 (a, b) = (b, a)
