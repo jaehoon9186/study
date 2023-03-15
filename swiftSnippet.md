@@ -103,6 +103,16 @@ let temp2 = count.sorted(by: {
 
 // dict.sorted { ($0.value, $0.key) > ($1.value, $1.key) } // 이렇게도 가능한가
 ```
+### key-value  에서  value-[key]로 전환하기
+```swift
+// 반복문활용 
+기존딕셔너리.forEach {
+    변환딕셔너리[$1, default: []].append($0)
+}
+
+// grouping? 활용
+[링크](https://stackoverflow.com/questions/49088372/invert-keys-for-values-in-swift-dictionary-collecting-duplicate-values) 참고
+```
 
 
 # 반복문
