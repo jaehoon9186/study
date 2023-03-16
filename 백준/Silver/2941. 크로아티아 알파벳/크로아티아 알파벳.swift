@@ -9,14 +9,11 @@ while idx < inputArray.count {
 
     // 특수문자
     for i in (2...3) {
-        if idx + i <= inputArray.count {
-            let sub = inputArray[idx..<idx + i].map { String($0) }.joined()
-            if croatiaAlphabet.contains(sub) {
-                idx += i
-                count += 1
-                flag = 1
-                break
-            }
+        if idx + i <= inputArray.count && croatiaAlphabet.contains(inputArray[idx..<idx + i].map { String($0) }.joined()) {
+            idx += i
+            count += 1
+            flag = 1
+            break
         }
     }
 
