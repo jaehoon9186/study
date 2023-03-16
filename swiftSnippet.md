@@ -201,6 +201,11 @@ str[str.index(str.startIndex, offsetBy: 3)]
 str.first
 str.last
 ```
+### 문자열 교체
+```swift
+import Foundation
+"aaaa".replacingOccurrences(of: "aa", with: "!") // "!!"
+```
 
 
 # 고차함수
