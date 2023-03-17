@@ -56,6 +56,7 @@ queueList[queueNum].async {
         print("🐯")
     }
 }
+//sleep(1)
 print("Main 2")
 queueList[queueNum].async {
     for _ in (0..<10) {
