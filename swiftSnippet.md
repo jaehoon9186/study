@@ -33,6 +33,9 @@ let numbers = Array<Int>(2...5) // [2,3,4,5]
 var board: [[Int]] = []
 // board.append([Int]) 인티저배열을 append한다. 
 
+// N*M 이차원배열 0 초기화 
+var answer: [[Int]] = Array(repeating: Array(repeating: 0, count: m), count: n)
+
 ```
 ### 정렬
 ```swift
