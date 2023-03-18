@@ -27,10 +27,8 @@ main.sync 동작시 데드락 주의
 시스템의 글로벌 대기열  
 할당한 테스크를 시스템이 알아서 기타쓰레드로 할당 후 처리  
 qos 옵션으로 우선순위를 부여가능 [참고](https://developer.apple.com/documentation/dispatch/dispatchqos)  
-concurrent Queue  
+concurrent Queue 
 
-
-쇼핑 더보기 (2,686)
 
 ### 커스텀
 사용자 정의로 큐를 만들수 있다. 기본옵션은 serial 큐이며 옵션으로 concurrent 큐를 만들수 있다.  
