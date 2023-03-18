@@ -13,14 +13,59 @@ Dispatch(프레임워크), Dispatch Queue(클래스)
 ### main?
 Serial Queue  
 메인 쓰레드에서 동작  
-백그라운드 쓰레드에서 UI update를 할때 사용한다  
+백그라운드 쓰레드에서 UI update를 할때 사용한다.  
+(UI update는 main Thread에서 동작해야한다, )  
 ```swift
 DispatchQueue.main.async {
     // TASK
 }
 ```
 main.sync 동작시 데드락 주의  
-왜? 
+왜 발생하는가?  
+sync는 완료될때 까지 기존의 스레드를 대기상대로 둔다.  
+완료신호를 기다리는 쓰레드에 새로운 TASK를 할당 하게 되는 경우인데.   
+main thread는 대기중이여서 새로운 TASK를 수행할 수 없는 상황이라. 아무것도 하지 못하는 상황에 빠져버린다. (교착상태 DeadLock). 
+
+```swift
+let serialQueue = DispatchQueue(label: "serial")
+
+print("MAIN 1")
+
+serialQueue.sync {
+    print("TASK 1 Start")
+
+    serialQueue.sync {
+        print("Another TASK")
+    }
+
+    print("TASK 1 Done")
+}
+
+print("MAIN 2")
+
+/*
+
+ main : "MAIN 1" 실행
+
+ GCD : 잠깐! 이번 임무는 다른 곳에서 처리하도록 하지 main queue는 대기하도록.
+ main : OK. 완료될 때 까지 대기하겠음.
+
+ GCD : serialQueue! TASK 1을 수행하도록.
+    serialQueue는 직렬큐구만, 일단 Thread 랜덤 할당하겠다.
+ serialQueue(Thread2) : OK. 할당된 TASK 1 수행하겠음.
+                    "TASK 1 Start" 했고~
+
+ GCD : 잠깐! 이번 임무는 다른 곳에서 처리하도록 하지 serialQueue는 대기하도록.
+ serialQueue(Thread2) : OK. 완료될 때 까지 까지 대기하겠음.
+
+ GCD : serialQueue! Another TASK 수행하도록.
+ serialQueue(Thread2) : ( .... 대기중 .... )
+ !!!! DEAD LOCK 발생 
+ 
+
+ */
+
+```
 
 
 ### global() ? 
