@@ -307,3 +307,10 @@ String(UnicodeScalar(97)) //a
 Char(UnicodeScalar(97)) //a
 
 ```
+
+### 진수변환
+```swift
+https://developer.apple.com/documentation/swift/int/init(_:radix:)
+참고
+
+```
