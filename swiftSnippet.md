@@ -302,4 +302,8 @@ let asciiIntValue_A = Int(UnicodeScalar("A").value)	 // 0x41, 65(d)
 
 // Ascii Int Value to String
 let result = String(UnicodeScalar(asciiIntValue_A)!)
+
+String(UnicodeScalar(97)) //a
+Char(UnicodeScalar(97)) //a
+
 ```
