@@ -293,3 +293,13 @@ func lcm(_ a: Int, _ b: Int) -> Int {
 // float or decimal
 pow(_:_)
 ```
+### 아스키 코드 변환
+```swift
+// String to Ascii
+let ch = "C"
+let asciiIntValue_C = Int(UnicodeScalar(ch)!.value)
+let asciiIntValue_A = Int(UnicodeScalar("A").value)	 // 0x41, 65(d)
+
+// Ascii Int Value to String
+let result = String(UnicodeScalar(asciiIntValue_A)!)
+```
