@@ -1,24 +1,15 @@
 let input = Int(readLine()!)!
 
-func getDistance(a: Int) {
-    var distance = 2
-    var maxTagetNum = 7
-    var updateDistance = 6
+var distance = 1
+var maxTagetNum = 1
+var updateDistance = 0
 
-    if a == 1 {
-        print("1")
-        return
+while true {
+    if input <= maxTagetNum {
+        print(distance)
+        break
     }
-
-    while true {
-        if a <= maxTagetNum {
-            print(distance)
-            break
-        }
-        distance += 1
-        updateDistance += 6
-        maxTagetNum += updateDistance
-    }
+    distance += 1
+    updateDistance += 6
+    maxTagetNum += updateDistance
 }
-
-getDistance(a: input)
