@@ -1,3 +1,1 @@
-let n = Int(readLine()!)!
-
-print(4 * n)
+print(4 * Int(readLine()!)!)
