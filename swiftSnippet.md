@@ -288,6 +288,23 @@ func lcm(_ a: Int, _ b: Int) -> Int {
 }
 ```
 
+### 소수
+```swift
+func isPrime(_ number: Int) -> Bool {
+    if number <= 1 {
+        return false
+    }
+
+    for i in 2..<Int(sqrt(Double(number))) + 1 {
+        if number % i == 0 {
+            return false
+        }
+    }
+
+    return true
+}
+```
+
 ### 제곱연산
 ```swift
 // float or decimal
