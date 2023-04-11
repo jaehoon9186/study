@@ -331,3 +331,8 @@ https://developer.apple.com/documentation/swift/int/init(_:radix:)
 참고
 
 ```
+
+### 데시멀 to Int
+```swift
+(pow(2, 15) as NSDecimalNumber).intValue
+```
