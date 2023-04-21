@@ -347,3 +347,6 @@ https://developer.apple.com/documentation/swift/int/init(_:radix:)
 ```swift
 (pow(2, 15) as NSDecimalNumber).intValue
 ```
+
+### 2차원 배열 특정영역 합 / 슬라이딩 윈도우 
+2차원 배열이 주어질때 좌상단 부터 단계별로 합을 입력해 놓은 배열을 만들고 
