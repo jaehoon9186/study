@@ -210,6 +210,17 @@ import Foundation
 "aaaa".replacingOccurrences(of: "aa", with: "!") // "!!"
 ```
 
+### 문자열 숫자인지 확인하기
+```swift
+let input = "123123"
+
+if let number = Int(input) {
+    print(number)
+} else {
+    print("숫자아님")
+}
+```
+
 
 # 고차함수
 ### map
