@@ -352,7 +352,7 @@ https://developer.apple.com/documentation/swift/int/init(_:radix:)
 2차원 배열이 주어질때 좌상단 부터 단계별로 합을 입력해 놓은 배열을 만들고 
 
 
-### 순열 / 조합
+### 순열
 ```swift
 // 순열 : n개 중 r개 순서신경써서 뽑기
 // DFS, 체크리스트 이용
@@ -378,6 +378,22 @@ func perm(_ arr: [String], _ r: Int, _ visited: inout [Bool], _ output: [String]
     }
 }
 
+// DFS, 스왑
+// arr, r, dept
+//var strArray = ["a", "b", "c"]
+//permSwap(&strArray, strArray.count)
+func permSwap(_ arr: inout [String], _ r: Int, _ dept: Int = 0) {
+    if dept == r {
+        print(arr)
+        return
+    }
 
+    for i in dept..<arr.count {
+        arr.swapAt(dept, i)
+        permSwap(&arr, r, dept + 1)
+        arr.swapAt(dept, i)
+    }
+
+}
 
 ```
