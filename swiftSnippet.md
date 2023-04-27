@@ -396,4 +396,20 @@ func permSwap(_ arr: inout [String], _ r: Int, _ dept: Int = 0) {
 
 }
 
+// DFS, left, right
+//var strArray = ["a", "b", "c"]
+//permLeftRight(strArray, 3)
+func permLeftRight(_ arr: [String], _ r: Int, _ output: [String] = []) {
+    if output.count == r {
+        print(output)
+        return
+    }
+
+    for i in 0..<arr.count {
+        permLeftRight(Array(arr[0..<i] + arr[(i+1)...]), r, output + Array(arrayLiteral: arr[i]))
+    }
+
+}
+
+
 ```
