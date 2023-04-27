@@ -350,3 +350,34 @@ https://developer.apple.com/documentation/swift/int/init(_:radix:)
 
 ### 2차원 배열 특정영역 합 / 슬라이딩 윈도우 
 2차원 배열이 주어질때 좌상단 부터 단계별로 합을 입력해 놓은 배열을 만들고 
+
+
+### 순열 / 조합
+```swift
+// 순열 : n개 중 r개 순서신경써서 뽑기
+// DFS, 체크리스트 이용
+//let strArray = ["a", "b", "c"]
+//var visited = Array(repeating: false, count: strArray.count)
+func perm(_ arr: [String], _ r: Int, _ visited: inout [Bool], _ output: [String] = []) {
+    // 초기화
+    var output = output
+    // 종료 조건
+    if output.count == r {
+        print(output)
+        return
+    }
+    // 반복 문, 재귀
+    for i in 0..<arr.count {
+        if !visited[i] {
+            visited[i] = true
+            output.append(arr[i])
+            perm(arr, r, &visited, output)
+            output.removeLast()
+            visited[i] = false
+        }
+    }
+}
+
+
+
+```
