@@ -413,3 +413,25 @@ func permLeftRight(_ arr: [String], _ r: Int, _ output: [String] = []) {
 
 
 ```
+
+### 조합
+```swift
+// 조합 : n개 중 r개 순서 상관 없이 뽑기
+//let strArray = ["a", "b", "c"]
+//comb(strArray, 2)
+func comb(_ arr: [String], _ r: Int, _ dept: Int = 0, _ output: [String] = []) {
+    var output = output
+
+    if output.count == r {
+        print(output)
+        return
+    }
+
+    for i in dept..<arr.count {
+        output.append(arr[i])
+        comb(arr, r, i + 1, output)
+        output.removeLast()
+    }
+}
+
+```
