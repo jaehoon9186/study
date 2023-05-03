@@ -434,4 +434,18 @@ func comb(_ arr: [String], _ r: Int, _ dept: Int = 0, _ output: [String] = []) {
     }
 }
 
+// 조합 결과를 리턴 받기
+func getCombResult(_ arr: [Int], _ r: Int) -> [[Int]] {
+    var result: [[Int]] = []
+
+    func comb(_ arr: [Int], _ r: Int, _ dept: Int = 0, _ output: [Int] = []) {
+        // comb 재귀
+    }
+
+    comb(arr, r)
+
+    return result
+}
 ```
+
+
