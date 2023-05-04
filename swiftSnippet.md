@@ -448,4 +448,9 @@ func getCombResult(_ arr: [Int], _ r: Int) -> [[Int]] {
 }
 ```
 
+### 조건에 맞는 배열의 인덱스만 배열로 만들기 
+```swift
+let arr = 배열.indices.filter { 조건 }
+```
+
 
