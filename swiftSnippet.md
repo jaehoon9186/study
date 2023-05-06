@@ -448,6 +448,27 @@ func getCombResult(_ arr: [Int], _ r: Int) -> [[Int]] {
 }
 ```
 
+### 조합 개수 구하기
+```swift
+// 조합의 성질을 이용해 재귀로 구현
+// nCr == n-1Cn-r  +  n-1Cr
+func combCount(_ n: Int, _ r: Int) -> Int {
+    if n == r || r == 0 {
+        return 1
+    }
+
+    return combCount(n - 1, r - 1) + combCount(n - 1, r)
+}
+
+for _ in 0..<time {
+    let input = readLine()!.split(separator: " ").map { Int($0)! }
+    let (r, n) = (input[0], input[1])
+
+    print(combCount(n, r))
+
+}
+```
+
 ### 조건에 맞는 배열의 인덱스만 배열로 만들기 
 ```swift
 let arr = 배열.indices.filter { 조건 }
