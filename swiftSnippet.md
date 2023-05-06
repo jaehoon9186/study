@@ -454,3 +454,13 @@ let arr = 배열.indices.filter { 조건 }
 ```
 
 
+### 팩토리얼
+```swift
+func factorial(_ num: Int) -> Int {
+    if num < 2 {
+        return 1
+    }
+
+    return factorial(num - 1) * num
+}
+```
