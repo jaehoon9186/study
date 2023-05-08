@@ -468,6 +468,20 @@ for _ in 0..<time {
 
 }
 ```
+```swift
+var combCountArr: [[Int]] = Array(repeating: Array(repeating: 0, count: 31), count: 31)
+// n의 최대값 30 까지 조합의 개수들 구해놓기
+for n in 0..<31 {
+    for r in 0...n {
+        if n == r || r == 0 {
+            combCountArr[n][r] = 1
+            continue
+        }
+
+        combCountArr[n][r] = combCountArr[n - 1][r - 1] + combCountArr[n - 1][r]
+    }
+}
+```
 
 ### 조건에 맞는 배열의 인덱스만 배열로 만들기 
 ```swift
