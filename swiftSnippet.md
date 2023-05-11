@@ -74,6 +74,11 @@ let slice = buckets[..<i] + buckets[k...j] + buckets[i..<k] + buckets[(j+1)...]
 // 다시 배열로 쓰기 위해서
 buckets = Array(slice)
 ```
+### 배열 개수만큼 
+```swift
+[1,2,3,4,5].prefix(3) // [1,2,3]
+[1,2,3,4,5].prefix(10) // [1,2,3,4,5] 가능한 개수만큼만 리턴해준다. 
+```
 
 # 딕셔너리 
 ### 딕셔너리 초기화
