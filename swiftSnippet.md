@@ -504,3 +504,42 @@ func factorial(_ num: Int) -> Int {
     return factorial(num - 1) * num
 }
 ```
+
+### 큐 queue 
+```swift
+struct Queue {
+    private var queue: [Int?] = []
+    private var head: Int = 0
+
+    public var isEmpty: Bool {
+        return size == 0
+    }
+
+    public var size: Int {
+        return queue.count - head
+    }
+
+    public mutating func push(_ element: Int) {
+        queue.append(element)
+    }
+
+    public mutating func pop() -> Int? {
+        guard isEmpty == false, let element = queue[head] else {
+            return -1
+        }
+
+        head += 1
+        // 일정 queue길이가 되면 초기화해주는 과정도 필요함.
+
+        return element
+    }
+
+    public func front() -> Int? {
+        return isEmpty ? -1 : queue[head]
+    }
+
+    public func back() -> Int? {
+        return isEmpty ? -1 : queue[queue.endIndex - 1]
+    }
+}
+```
