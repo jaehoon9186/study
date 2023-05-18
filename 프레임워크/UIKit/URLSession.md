@@ -230,6 +230,7 @@ if let data = data,
 ```swift
 // UIImage 가져오기 
 // 이미지를 세팅하는 과정은 main thread에서 진행해야한다. 
+// 동기로 가져오기때문에 주의, 비동기로는 어떻게?
 func getImage(from string: String) -> UIImage? {
     guard let url = URL(string: string) else {
         return nil
