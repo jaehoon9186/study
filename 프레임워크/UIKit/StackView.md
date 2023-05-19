@@ -3,6 +3,8 @@ UIView 컴포넌트들을 스택뷰에 추가하여 UI구성을 이지하게~
 
 ex) 
 
+### DOCS
+[UIStackView](https://developer.apple.com/documentation/uikit/uistackview)
 
 ### CODE
 ```swift
