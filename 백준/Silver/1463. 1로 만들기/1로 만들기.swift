@@ -13,14 +13,13 @@ func minCalculationCount(_ num: Int) {
 
 
     for i in 2...num {
-        var minCal = Int.max
+        var minCal = dplist[i - 1]
         if i % 3 == 0 {
             minCal = min(minCal, dplist[i / 3])
         }
         if i % 2 == 0 {
             minCal = min(minCal, dplist[i / 2])
         }
-        minCal = min(minCal, dplist[i - 1])
         dplist.append(minCal + 1)
     }
 
