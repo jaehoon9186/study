@@ -86,11 +86,30 @@
 * View와 Controller가 밀접히 붙어있기 때문에 재사용성이 떨어지고, 유닛테스트를 진행하기 어렵다. 
 
 
+> 추가
+<img width="1083" alt="스크린샷 2023-06-04 오전 2 30 24" src="https://github.com/jaehoon9186/study/assets/83233720/d6010a06-3a44-4408-b58e-09224f1dff14">
+
+MVC는 어떻게 소통할까?
+
+Controller -> View, Model : 컨트롤러에서 인스턴스를 생성하기때문에 바로 접근 가능
+
+Model <-> View : 불가! 모델은 UI독립적, 뷰에는 UI항목들만 있기때문에. 소통할 필요도 없음. 
+
+View -> Controller : 사용자가 타이핑을 하거나, 버튼을 누르는 등의 행동을 취하는 경우.  
+- Target-Action: 
+- delegate: 스크롤하는 중 등 복잡한 액션이 이루어지는 경우
+- dataSource: 뷰는 데이터를 가지고 있지 않음. 50만개의 데이터를 가지고 있어도 사람이 볼수 있는 한계는 10개가 최대인경우. 50만개를 모두 뷰에 가져올 필요가 없음. 테이블뷰의 경우도 스크롤할때 마다 새로운 데이터들을 가져온다. 
+                      
+
+Model -> Controlelr : 모델의 데이터가 변경된 경우를 감지 해야할 때. 
+- Observer Pattern / Notification & KVO: 
+- Delegate Pattern: 
+
+
+
+
 > CODE
 ```swift
-
-
-
 ```
 
 
@@ -119,3 +138,4 @@
 ## 참고
 [참고글](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52)  
 [참고깃헙](https://github.com/haxpor/ios-design-patterns)  
+[참고 블로그](https://velog.io/@ictechgy/MVC-디자인-패턴)
