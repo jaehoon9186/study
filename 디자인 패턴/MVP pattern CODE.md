@@ -78,11 +78,12 @@ protocol AnimalViewPresenter {
 // MARK: - Presenter
 class AnimalPresenter {
 
-    weak var view: AnimalView?
+    weak var animalView: AnimalView?
+
     let service = Service()
 
     init(view: AnimalView) {
-        self.view = view
+        self.animalView = view
     }
 }
 
@@ -90,12 +91,11 @@ extension AnimalPresenter: AnimalViewPresenter {
     func showRandomAnimal() {
         if let animal = service.randomAnimal() {
             DispatchQueue.main.async {
-                self.view?.setRandomAnimal(icon: animal.iconImage, name: animal.name)
+                self.animalView?.setRandomAnimal(icon: animal.iconImage, name: animal.name)
             }
         }
     }
 }
-
 
 ```
 
