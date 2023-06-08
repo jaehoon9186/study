@@ -79,6 +79,8 @@ protocol AnimalViewPresenter {
 class AnimalPresenter {
 
     weak var animalView: AnimalView?
+    
+    // 모델 소유 해야함. 모델 인스턴스 만들자. 
 
     let service = Service()
 
