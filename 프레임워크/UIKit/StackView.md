@@ -44,6 +44,14 @@ ex)
     }
 ```
 
+```swift
+func congifure() {
+    let stack = UIStackView(arrangedSubviews: [컴포넌트1, 컴포넌트2, 컴포넌트3])
+    stack.axis = .vertical
+    stack.spacing = 10
+    stack.alignment = .center
+}
+```
 
 > 스택뷰의 사이즈에 맞춰 컴포넌트들의 사이즈을 지정해 주는경우(?)
 [블로그](https://velog.io/@sun02/UIStackView-%EC%BD%94%EB%93%9C%EB%A1%9C-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0)
