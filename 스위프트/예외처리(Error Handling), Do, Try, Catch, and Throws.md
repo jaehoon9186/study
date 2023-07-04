@@ -3,6 +3,7 @@
 
 [Docs](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/errorhandling/)  
 [youtube link](youtube.com/watch?v=ss50RX7F7nE&list=PLwvDm4Vfkdphr2Dl4sY4rS9PLzPdyi8PM&index=2)
+[예제 프로젝트](https://github.com/jaehoon9186/study/tree/main/CODE/ERROR%20HANDLING)
 
 실행중인 프로그램의 비정상적인 종료를 막고, 상태를 정상상태로 유지하는 것이 목적
 
