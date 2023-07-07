@@ -116,3 +116,4 @@ Task {
     await viewModel.fetchImage()
 }
 ```
+async 메서드를 호출하려면 async 메서드 내에서 호출하거나, Task로 묶어서 호출해야한다. <br/>
