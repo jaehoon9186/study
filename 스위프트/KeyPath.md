@@ -44,7 +44,12 @@ print(철수[keyPath: \Person.age]) // 26
 값을 참조하는 것이 아니라 프로퍼티에 대한 경로(?)를 참고하는 것이기 때문에 다양한 응용이 가능할 것 같다.  
 Expression에서도 다양한 방법에 대한 소개가 있다.  
 
-또한 keypath는 
+또한 keypath는 프로퍼티와 서브스크립트에 대한 참조를 나타내는 타입이기때문에 변수에 저장되거나 전달 할 수 있다.   
+```swift
+let pathToAge = \Person.age
+print(철수[keyPath: pathToAge])
+```
+
 <br/>
 
 ## 형식은?
@@ -56,4 +61,16 @@ root type이 뭐지??
 <br/>
 
 ## 종류
+
+* AnyKeyPath
+* PartialKeyPath<Root>
+* KeyPath<Root, Value>
+* WritableKeyPath<Root, Value>
+* ReferenceWritableKeyPath<Root, Value>
+
+
+<img width="528" alt="스크린샷 2023-07-13 오후 2 40 19" src="https://github.com/jaehoon9186/study/assets/83233720/7b7fd2ee-a11b-4db3-9a36-2f9adf5ede16">
+<img width="517" alt="스크린샷 2023-07-13 오후 2 40 34" src="https://github.com/jaehoon9186/study/assets/83233720/022289ab-1ce2-4a4f-81f0-70a454b09fe9">
+<img width="514" alt="스크린샷 2023-07-13 오후 2 42 06" src="https://github.com/jaehoon9186/study/assets/83233720/58e59588-6b80-4666-91bb-fe58e916bc88">
+
 
