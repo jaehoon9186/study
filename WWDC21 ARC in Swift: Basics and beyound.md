@@ -98,6 +98,13 @@ but, 마지막 사용 이후에 lifetime이 끝날 수도 있음.
     : deinitializer 대신 defer를 사용하고, deinitializer는 검증만 수행한다.이로 모든 사이드이펙트들을 제거할 수 있다.  <Br/>
     : defer {} ? 함수의 마지막에 실행하도록 함. <br/>
     : assert() ? 특정조건을 체크하고 조건이 성립되지 않으면 지정한 메시지도 출력가능. 디버깅 모드에서만 동작함.  
+## Xcode 13 도입 기능
+Optimize Object Lifetimes: Yes  
+<img width="2295" alt="스크린샷 2023-07-21 오전 1 30 13" src="https://github.com/jaehoon9186/study/assets/83233720/8605a4a7-aa92-4edc-8711-28968d248dbc">
+
+
+마지막 사용때 deallocate 될 확률를 높여준다.  
+-> ARC최적화를 가능하게, 숨겨진 lifetime bug를 찾을 수도, object lifetime을 일관성 있게 다룰수 있게 해줌. 
 
 <br/>
 <br/>
