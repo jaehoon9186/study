@@ -44,22 +44,62 @@ but, 마지막 사용 이후에 lifetime이 끝날 수도 있음.
 <img width="1190" alt="스크린샷 2023-07-20 오후 10 39 40" src="https://github.com/jaehoon9186/study/assets/83233720/aa963323-e29f-48c2-9777-d6042e895f21">
 이를 위해 swift의 기능과, 이러한 기능을 사용하지 않았을 때(observed )의 결과와 안전한 기술들에 대해 알아보자. 
 
-1) Language features
-* ```Weak``` and ```unowned``` refernces 
+
+
+* ### ```Weak``` and ```unowned``` refernces - problem 1
   - do not paricipate in reference counting
   - break reference cycles  
     : weak, unwoned 키워드를 사용하여서 rc를 카운팅 하는데에 참여하지 않으며, 이로인해 reference cycle이 일어나지 않도록 한다!  
     : <img width="2312" alt="스크린샷 2023-07-20 오후 11 09 04" src="https://github.com/jaehoon9186/study/assets/83233720/be73b235-6f56-4185-9dbd-815bc3a97007">
-    But, ```Weak```, ```unowned```키워드를 사용한다 하더라도 버그가 발생할수 있다. (참조순환은 없애줌)
-    위 코드를 보면 test() func의 마지막줄을 실행하기전에 Traveler 인스턴스가 메모리에서 이미 해제 될수 있는 상황이기때문에 앱이 크러쉬난다. 옵셔널 바인딩이 이 문제를 해결할 수 있지만, 옵셔널 바인딩은 문제를 더 악화(worsens)시킨다.
+    But, ```Weak```, ```unowned```키워드를 사용한다 하더라도 버그가 발생할수 있다. (참조순환은 없애줌)  
+    위 코드를 보면 test() func의 마지막줄을 실행하기전에 Traveler 인스턴스가 메모리에서 이미 해제 될수 있는 상황이기때문에 앱이 크러쉬난다.  
+    옵셔널 바인딩이 이 문제를 해결할 수 있지만, 옵셔널 바인딩은 문제를 더 악화(worsens)시킨다. (명백한 충돌이 없기때문에 silent bug들을 만든다!)
 
-* sdfsf
-* 
+* ### ```Weak``` and ```unowned``` refernces - Safe techniques 3가지
+  : ```Weak``` and ```unowned```참조를 안전하게 처리하는 다양한 기술들이 있다. 각 기술은 초기 구현 비용과 유지관리 비용이 다르다.
+  - ```withExtendedLifetime()```
+    <img width="2324" alt="스크린샷 2023-07-20 오후 11 30 31" src="https://github.com/jaehoon9186/study/assets/83233720/c324b3c1-2428-4d2f-8d1b-bf221d7f72a9">  
+    <img width="2322" alt="스크린샷 2023-07-20 오후 11 30 44" src="https://github.com/jaehoon9186/study/assets/83233720/8544dfed-bdbd-4d01-9b2f-9acc91adea11">  
+    <img width="2305" alt="스크린샷 2023-07-20 오후 11 32 11" src="https://github.com/jaehoon9186/study/assets/83233720/c18b4765-f896-49c0-97e7-0b12a10d2c34">  
+    : 객체의 수명을 연장함으로 해결한다.  
+    : 그러나 이것을 깨지기 쉬우며!(fragile), 책임을 사용자가 가진다! (weak 참조로 인해 나타날 버그가 있는 곳마다 사용자가 찾아서 ```withExtendedLifetime()```를 사용해 줘야함!)  
 
-2) Consequences and safe techniques
+  - Redesign to access via strong reference
+    <img width="2332" alt="스크린샷 2023-07-20 오후 11 41 01" src="https://github.com/jaehoon9186/study/assets/83233720/7bc3c9ed-2a43-4931-a8cb-e4a981625125">
+
+    : 강한 참조로(기본) rc를 유지 하는 방법? 클래스 설계에 주의해야한다.  
+    <img width="265" alt="스크린샷 2023-07-21 오전 12 00 46" src="https://github.com/jaehoon9186/study/assets/83233720/3abc4bf8-163d-41d8-b083-69586459da39">
+    위 코드는 이런식으로 deinit 된다. 
+
+  - Redesign to avoid weak/unowned reference  
+    : reference cycle이 생기지않도록 재설계한다. weak/unowned를 사용안해도 됨! 잠재적 object lifetime bug를 제거하는 가장 확실한 방법.
+    <img width="2358" alt="스크린샷 2023-07-21 오전 12 05 27" src="https://github.com/jaehoon9186/study/assets/83233720/b0f74477-180c-47a2-8ef9-55857006fe3b">  
+    <img width="2340" alt="스크린샷 2023-07-21 오전 12 05 56" src="https://github.com/jaehoon9186/study/assets/83233720/3b4fbca5-0beb-4c3e-ad20-d389d71abbe6">
+
+
+* ### Deinitializer side-effects deinit - problem 2
+  <img width="1477" alt="스크린샷 2023-07-21 오전 12 13 58" src="https://github.com/jaehoon9186/study/assets/83233720/ee2487b4-f27d-4747-b279-6819623026c2">
+  deinit 되면서 부작용이 발생할 수 있다. <br/>
+  예1) "done ~~" 프린트 되고 난 후에 deinit 될 수도 있음!  
+  <img width="2247" alt="스크린샷 2023-07-21 오전 12 38 22" src="https://github.com/jaehoon9186/study/assets/83233720/49e9f7fe-bab1-434e-9ce7-465cafcc550a">  
+  예2)  
+  <img width="2345" alt="스크린샷 2023-07-21 오전 12 42 22" src="https://github.com/jaehoon9186/study/assets/83233720/4900074d-b4d6-4102-be62-ff752dcf9002">  
+  <img width="2344" alt="스크린샷 2023-07-21 오전 12 42 51" src="https://github.com/jaehoon9186/study/assets/83233720/0b6fbc51-59a8-4e01-8749-45c534fa4eff">  
+
+* ### Deinitializer side-effects deinit - Safe techniques 3가지
+  * ```withExtendedLifetime()```
+    <img width="2329" alt="스크린샷 2023-07-21 오전 12 54 18" src="https://github.com/jaehoon9186/study/assets/83233720/fe5eb5e2-3f07-44fa-9ecf-af0043998c25">
+    : 이전의 설명과 같다. 개체의 수명을 연장하여서 해결.  
+  * Redesign to limit visibility of internal class details
+    <img width="2332" alt="스크린샷 2023-07-21 오전 12 56 06" src="https://github.com/jaehoon9186/study/assets/83233720/809343bb-37df-4cd0-957b-4662908bbbb7">  
+    : 접근 제어자를 private로 설정하여서 버그를 방지한다. 
+  * Redesign to avoid deinitializer side-effects
+    <img width="2349" alt="스크린샷 2023-07-21 오전 12 58 49" src="https://github.com/jaehoon9186/study/assets/83233720/6d531904-b095-4446-906d-8b23575acecc">
+    : deinitializer 대신 defer를 사용하고, deinitializer는 검증만 수행한다.이로 모든 사이드이펙트들을 제거할 수 있다.  
 
 
 > reference cycle ? 참조 순환이 머임?
   
 <img width="2419" alt="스크린샷 2023-07-20 오후 10 54 58" src="https://github.com/jaehoon9186/study/assets/83233720/db320028-0698-4e36-b8aa-8c1d3b717153">  
 end-used 이후에서 서로 참조하고 있는 상황!! 개체의 할당이 취소 되지 않아 메모리 누수가 발생한다.  
+
