@@ -134,6 +134,11 @@ Controller 대신에 Presenter, View와 Model의 의존성을 없애기 위해.
 ## *MVVM*
 <img width="716" alt="스크린샷 2023-06-02 오후 5 52 18" src="https://github.com/jaehoon9186/study/assets/83233720/c971b9e6-0fd6-423f-8195-3b6686287100">
 
+1. View는 ViewModel에 대한 참조를 가지지만, 반대로는 아닙니다.
+2. ViewModel은 Model에 대한 참조를 가지지만, 반대로는 아닙니다.
+3. View는 Model을 참조하지 않거나 Model이 View를 참조하지 않습니다.
+
+
 ## *VIPER*
 <img width="732" alt="스크린샷 2023-06-02 오후 5 52 39" src="https://github.com/jaehoon9186/study/assets/83233720/7d94d00c-ede5-48a0-aa2e-7165465431c4">
 
