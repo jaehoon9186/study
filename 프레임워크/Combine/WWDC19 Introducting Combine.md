@@ -259,5 +259,45 @@ map, filter같은건 훌룡한 api이지만 동기식 동작을 위한것임. Co
 결과인 튜플을 버튼의 isEnabled 속성에 assign함. 
 
 
+# Combine Latest
+
 <img width="963" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/c7998dc5-be3c-43ea-88f8-0171a7717f6c">
 
+완드가지고 놀기 전에 약관동의하는 예제임. Play버튼이 활선화 되기 전에 세 가지의 스위치를 모두 활성화 해야됨. 하나가 비활성화되면 Play버튼을 비활성화 해야함. 
+
+이것이 Combine Latest의 잡임. 
+
+<img width="1290" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/e9a2c8aa-e0ca-45cf-8d59-055ef729b327">
+
+* Zip과 마찬가지로 여러 upstream input들을 single value로 변환한다.
+* 그러나, Zip과 달리, 진행하려면 upstream의 input이(any of its upstream, 업스트림 중 하나?) 필요하다.일종의 "When/or" 작업
+* 이를 지원하기 위해 각 upstream 에서 받은 마지막 값을 저장한다. 또한 이를 단일 downstream value로 변환할수 있는 클로저로 구성함.
+
+예를 들어 1번 Publisher가 'A'를 생성하고 2번 Publisher가 '1'를 생성하면 클로저를 실행하여 이를 문자열화하고 downstream으로 보낸다( 'A 1' 보냄 ).   
+나중에 2번 Publisher가 새로운 값인 '2'를 생성하면 1번 Publisher의 이전 값과 결합하여 새 값을 보낼수 있음 ( 'A 2' 보냄 ).  
+즉, upstream 변경사항에 따라 새로운 이벤트를 얻음.  
+
+<img width="1276" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/56e3afd2-4bfd-401e-8bac-bab5e5d1515f">
+
+예제 앱에서는 3개의 upstream 이 있음, 모든스위치는 스위칭될 때 모두 Bool상태를 사용하고, 다시 변환함. 하나의 Bool값으로 그리고 Play 버튼의 isEnabled 프로퍼티에 기록함.  
+즉, 그 중 하나라도 false면 결과는 false이다. 모두 true면 결과도 true로 벼튼이 활성화 됨.  
+
+
+# Try it
+
+<img width="1260" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2274403e-f97c-4eea-aebc-baf03b7ab595">
+
+Combine은 앱에서 점진적으로 채택될 수 있도록 설계되었다. 이것을 사용하기 위해서 모든 것을 변환할 필요는 없다. 
+몇가지 부터 해보셈. 
+* NotificationCenter를 사용하는 경우 Notification을 받은 다음 그것을 보고 어떤 작업을 해야할지 결정해야한다면 filter를 사용해봐라.
+* 비동기 작업들의 결과에 가중치를 두는 경우, 네트워크 작업에 Zip 을 사용할 수 있다.
+* URLSession을 사용해서 데이터를 받고 JSON Decoder를 사용해서 데이터를 변환해야하는 경우, decode Operator를 사용할 수 있다.
+
+
+
+
+
+_____
+
+
+WWDC19 Combine in Practice 도 볼것. 
