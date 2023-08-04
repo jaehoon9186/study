@@ -23,6 +23,7 @@ KVO를 이용함으로
 
 
 # Annotate a Property for Key-Value Observing
+### 관찰할 대상에 해야할 것.
 
 ```swift
 class MyObjectToObserve: NSObject {
@@ -35,14 +36,81 @@ class MyObjectToObserve: NSObject {
 * 관찰할 프로퍼티에 ```@objc``` attribute와, ```dynamic``` modifier를 추가해라.
 * 클래스는 ```NSObject``` 상속받음. 
 
+
 # Define an Observer
+### 관찰자(Observer) 만들기. 
+
+* Observer 클래스의 인스턴스는 하나 또는 그이상의 프로퍼티의 변경에 대한 정보를 관리함.
+* Observer를 만들땐 ```observe(_:options:changeHandler:)``` method를 사용해라.
+    * 관찰할 프로퍼티에 대한 key path 필요.
+    * > <img width="599" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/0f646419-8416-44e0-9867-976a3604849e">   
+      > 이거 도큐먼트를 못찾겠음..
 
 
 
+```swift
+class MyObserver: NSObject {
+    @objc var objectToObserve: MyObjectToObserve
+    var observation: NSKeyValueObservation?
 
 
+    init(object: MyObjectToObserve) {
+        objectToObserve = object
+        super.init()
 
 
+        observation = observe(
+            \.objectToObserve.myDate,
+            options: [.old, .new]
+        ) { object, change in
+            print("myDate changed from: \(change.oldValue!), updated to: \(change.newValue!)")
+        }
+    }
+}
+```
+
+* key path로 옵져브할 프로퍼티를 지정해준걸 볼수 있음.
+* [NSKeyValueObservedChange](https://developer.apple.com/documentation/foundation/nskeyvalueobservedchange) 인스턴스의 oldValue, newValue 프로퍼티를 사용함으로 변경된 값들을 볼수 있다.
+* 만약 변경된 값를 볼 필요가 없다면. observe() 메소드에 options를 안주면됨. 그러면 oldValue, newValue 등은 nil이 리턴.
+
+# Associate the Observer with the Property to Observe
+### Observer와 관찰할 프로퍼티와 연결
+
+* 도큐먼트의 예제에서는 초기화 할때 매개변수로 전달하여 연결함.
+
+```swift
+let observed = MyObjectToObserve()
+let observer = MyObserver(object: observed)
+```
+
+
+# Respond to a Property Change
+### 프로퍼티 변경에따른 응답. 
+
+* 위의 예제에서 변경이 이뤄졌을때의 응답을 확인해봄. 
+
+```swift
+observed.updateDate() // Triggers the observer's change handler.
+// Prints "myDate changed from: 1970-01-01 00:00:00 +0000, updated to: 2038-01-19 03:14:08 +0000"
+```
+
+# 추가
+
+## ```observe(_:options:changeHandler:)``` method의 옵션들이 궁금하다. 
+[NSKeyValueObservingOptions](https://developer.apple.com/documentation/foundation/nskeyvalueobservingoptions) 
+
+
+## Observer를 만들때 꼭 클래스를 정의하지 않아도 된다. 
+
+```swift
+let observed = MyObjectToObserve() // 관찰 대상이 있는 클래스. 
+
+let observation: NSKeyValueObservation? 
+
+observation = observed.observe(\.myDate, options: [.new, .old]) {
+    print("\($0.myDate), \($1)")
+}
+```
 
 
 
