@@ -57,3 +57,45 @@ App delegate는 두가지의 기본 역할을 수행했습니다.
 대신 UISceneDelegate가 모두 처리합니다. 
 
 이러한 변경사항은 app delegate에서 수행했던 UI 설정 또는 해제 작업은 Scene delegate로 마이그레이션 해야한다는 것입니다. 
+
+<img width="1299" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/328f2d41-579f-41f6-898b-100df434b1ee">
+
+실제로, iOS 13에서, scene lifecycle을 채택하면 UIKit은 ui 상태와 관련된 old app delegate 메서드를 호출하는 것을 중단할 것입니다. 
+
+대신, 새로운 scene delegate 메소드를 호출할 것이고, 대부분이 1 to 1 맵핑되어 있기 때문에 매우 간단합니다. 
+
+no 걱정, Scene을 지원한다는 것이 iOS12 이하의 버전 지원을 중단하는것을 의미하는것은 아님.
+만약 다시 배포해야하는 경우, 이러한 메소드 세트를 간단히 유지할수 있으며, UIKit은 런타임에 올바른 세트를 호출할 것입니다. 
+
+<img width="941" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/872c7054-27c1-4c30-b446-38fcec2f813b">
+
+정확한 delegate 메소드를 살펴보기전에, app delegate가 받는 추가적인 책임이 하나 더 있습니다. 
+
+새로운 scene session이 생성될 때, 존재하는 scene session이 삭제될 때 시스템은 app delegate에 알립니다. 
+이러한 life cycle을 구체적으로 보겠습니다. 
+
+<img width="1231" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/452fbb3a-0262-4dac-813a-2ad46ef3186a">
+
+나는 블루앱을 개발하고 있고, 블루앱을 처음 실행하는 경우를 가정합니다. 
+
+호출 스택을 살펴보면. 
+1. **먼저, app delegate는 `didFinishLaunching` 옵션과 함께 실행을 완료할 것입니다.**
+    ![image](https://github.com/jaehoon9186/study/assets/83233720/0349879c-ca0b-456a-9784-c7d95d68895c)  
+   ( app delegate에 이부분 같음 )  
+   여기서도 일회성 Non-UI 설정을 하는 것이 좋습니다.
+3. **그 직후에 시스템은 scene session을 생성할 것입니다. 그러나 UI Scene을 생성하기 전에 애플리케이션에 UIScene configuration(구성?)을 요청합니다.**
+    <img width="770" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/79bdefd9-7004-4c60-866f-ea1c66847051">  
+   ( 참고 )  
+   <img width="1272" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2b24a491-5127-4906-9638-23e5347e7b5b">
+    이 configuration은 무슨(?) scene delegate와, 무슨 story board와, 구체적으로 명시한다면 무슨 scene subclass 를 만들려는 scene과 함께 만들지 지정합니다.
+   info.plist로 넣어줄 수 도 있고, 코드로 넣어줄 수도 있습니다.
+
+   이것은 옳바른 configuration은 선택할수 있는 기회를 제공합니다. main scene configuration이 있을수도있고, accessory scene이 있을 수도 있습니다.
+   따라서, 옳바른 scene configuration을 선택하기 위한 context로 사용하려면, 제공되는 옵션 파라미터를 확인해야합니다.
+
+   <img width="1231" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/fd2f3025-f077-4bee-ab3d-4a8a28bd33b0">
+
+   예를 들면, 
+
+5. 
+ 
