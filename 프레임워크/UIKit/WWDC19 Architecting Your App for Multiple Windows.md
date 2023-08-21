@@ -74,7 +74,8 @@ no 걱정, Scene을 지원한다는 것이 iOS12 이하의 버전 지원을 중�
 새로운 scene session이 생성될 때, 존재하는 scene session이 삭제될 때 시스템은 app delegate에 알립니다. 
 이러한 life cycle을 구체적으로 보겠습니다. 
 
-<img width="1231" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/452fbb3a-0262-4dac-813a-2ad46ef3186a">
+### 앱 실행시 
+<img width="1220" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2c14b9e6-ec76-44bb-96fd-44f61e1c8b9c">
 
 나는 블루앱을 개발하고 있고, 블루앱을 처음 실행하는 경우를 가정합니다. 
 
@@ -83,7 +84,7 @@ no 걱정, Scene을 지원한다는 것이 iOS12 이하의 버전 지원을 중�
     ![image](https://github.com/jaehoon9186/study/assets/83233720/0349879c-ca0b-456a-9784-c7d95d68895c)  
    ( app delegate에 이부분 같음 )  
    여기서도 일회성 Non-UI 설정을 하는 것이 좋습니다.
-3. **그 직후에 시스템은 scene session을 생성할 것입니다. 그러나 UI Scene을 생성하기 전에 애플리케이션에 UIScene configuration(구성?)을 요청합니다.**
+2. **그 직후에 시스템은 scene session을 생성할 것입니다. 그러나 UI Scene을 생성하기 전에 애플리케이션에 UIScene configuration(구성?)을 요청합니다.**
     <img width="770" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/79bdefd9-7004-4c60-866f-ea1c66847051">  
    ( 참고 )  
    <img width="1272" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2b24a491-5127-4906-9638-23e5347e7b5b">
@@ -95,7 +96,40 @@ no 걱정, Scene을 지원한다는 것이 iOS12 이하의 버전 지원을 중�
 
    <img width="1231" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/fd2f3025-f077-4bee-ab3d-4a8a28bd33b0">
 
-   예를 들면, 
+   예를 들어, info.plist에 정의하고 나면 정말 간단합니다. 수신 sessions의 role을 확인하면서(?) name으로 참고하기만 하면 됩니다.
 
-5. 
- 
+   앱실행됨. 이제 scene session을 확보했으나 아직 UI를 볼수 없습니다. 
+
+3. **session 연결?**  
+   <img width="1265" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/ab13d167-ce38-4b4c-8f31-b2ee33df7815">
+
+   여기에서 새로지정된 UI Window 를 이용해 초기화합니다. 제공된 window scene을 전달한다는 것을 알수 있습니다.
+
+   그러나 중요한 것은 window를 구성하기 위한 사용자 활동(activity) 또는 상태복원 활동(activity)도 확인해야 한다는 것 입니다.(이건 잠시 후에)
+
+   이제 앱이 보입.
+
+
+### background 로
+사용자중 한명이 위로 스와이프하여 홈화면으로 돌아가면 어떻게 될까요? old familiar는 active상태를 사임하고, scene delegate에 메소드를 호출하여 background로 들어갔습니다. 
+
+<img width="1240" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/920729b1-ebb8-4e63-8672-b4ba31723db3">
+
+but, 이제 흥미로운 것이 있습니다. 
+
+<img width="1274" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/31c718a3-e474-4055-9e5f-f7f2e805c0ee">
+
+어느시점 이후 scene은 연결이 끊어질 수 있습니다. 리소스를 회수하기 위해, 시스템은 scene을 background로 들어가는 그러한 시점 이후에 메모리에서 scene을 해제할 수 있습니다.  
+이는 또한 scene delegate가 메모리에서 해제됨을 의미하고, scene delegate가 보유한(붙잡고있는) 모든 window 계층, view 계층 도 마찬가지로 메모리에서 해제됨을 의미합니다. 
+
+이렇게 하면 해당 scene과 관련된 애플리케이션의 메모리의 큰 리소스를 해제 할 기회를 주는 것입니다. 
+그러나, scene이 나중에 재연결될수 있기때문에, user data나 상태를 영구적으로 삭제하지 않는 것이 중요합니다. 
+
+### 종료 시
+<img width="1244" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/dcf9c0ab-03c8-4f81-afc3-511d0b6f19f3">
+
+사용자가 swip up으로 앱을 종료한다면 어떤일이 벌어질까요? 시스템은 app delegate의 didDiscardSceneSession을 호출합니다.
+
+<img width="1268" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/8a1e336e-79ed-41f9-86c8-679dcbcbbfa3">
+
+텍스트 편집앱ㅇ
