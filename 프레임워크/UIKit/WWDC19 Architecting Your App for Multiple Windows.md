@@ -1,5 +1,7 @@
 # WWDC19 Architecting Your App for Multiple Windows
 
+[WWDC19 Architecting Your App for Multiple Windows](https://developer.apple.com/videos/play/wwdc2019/258/)
+
 <img width="1210" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/ef03a259-a910-4e77-8c17-7b7b4b864b6d">
 
 먼저 멀티 window 앱을 설계하는 방법에 대해 이야기 합니다.   
@@ -132,4 +134,145 @@ but, 이제 흥미로운 것이 있습니다.
 
 <img width="1268" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/8a1e336e-79ed-41f9-86c8-679dcbcbbfa3">
 
-텍스트 편집앱ㅇ
+텍스트 편집앱앱의 저장되지 않은 초안과 같은 scene과 관련된 유저 상태나 데이터 같은것을 실제로 영구적으로 지울수 있는 기회를 제공하는 것입니다. 이제, 사용자중 한명이 app process가 not running 하는 동안 swiftcher에서 swiping up을 하여서 하나 이상의 UIScene을 제거되는 것도 가능합니다. 만약 process가 notrunning인 경우, 시스템은 disccarded(제거된? 버려진?) session들을 추적하고, 앱의 다음 실행 직후에 이를 호출합니다. 
+
+# Architecture
+
+이제 앱에 통합하는 것을 고려할 수 있는 몇가지 아키텍처 패턴에 대해 알아보겠습니다. 
+
+<img width="1258" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/5661aa34-6917-42b8-a3b8-6b28475bb200">
+
+state restoration(상태 복원?)에 대해 이야기 하겠습니다. iOS 13에서는 상태복원이 더 이상 중요하지 않습니다. 
+앱에서는 scene-based 상태복원을 구현하는것이 중요합니다. 
+왜그럴까요?
+
+<img width="960" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/166eb3c2-d549-47a2-aa6c-ccfec2cf21a7">
+
+예를 들어 문서앱이있고, 자동차여행을 계획하고 있으며, 4개의 다른 session이 열려 있습니다. 
+
+하지만 packing list와 agenda에 집중하고 있는 중입니다. 어느 시점에서, 다른 두가지의 scene들은(road trip, attendees)는 시스템에 의해 연결 해제되고, released(해제)되었습니다. 
+
+여기서 상태복원을 구현하지 않으면, road trip으로 다시 돌아가게 될 때, 이전에 작성했던 상태로 돌아가지 않을 것 입니다. 편집 중이던 document앱의 scene으로 가지 않을 것임. 
+
+대신, 새로운 window인것 처럼 시작할 것입니다. 이것은 좋지 못한 UX입니다.  
+
+어떻게 해결 할 수 있을까요?  
+
+<img width="1277" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/322c0c02-128c-4b75-b968-93d60a156d8b">
+
+iOS13에서는 완전히 새로운 scene-based 상태복원 API가 있습니다. 이것은 매우 간단합니다.  view 계층구조를 인코딩하지 않고, 대신 window를 다시 만들수 있는 상태를 인코딩하는 방식으로 작동합니다. 
+
+이것은 NSUserActivity를 기반으로 합니다. 따라서, 애플리케이션이 spotilight search 나 handoff와 같은 강력한 기술을 활용하는 경우, 앱의 상태를 인코딩 하기 위해 이와 같은 동일한 activity를 사용할 수 있습니다. 
+
+iOS13에서는 시스템에서 반환하는 상태 복원 아카이브가 나머지 애플리케이션의 동일한 data protection class 와 일치 한다는 점도 also worth nothing in iOS13
+
+
+<img width="1241" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/97393d5c-9675-4c07-a259-5945b11d95e5">
+
+코드를 봅시다. scene delegate에서, 우리는 scene에 대한 state restoration activity(상태복원활동?)을 구현하고 현재 window에서 가장 활동적이고 관련있는 user activity form을 찾는 메소드를 호출합니다. 그런다음 반환합니다.  
+
+얼마후, scene이 foreground로 재진입하고, 연결된 상태가 되면, session이 state restoration activity(상태복원활돌?)에 포함되어 있는지 확인합니다. 만약 포합되어있다면. 그 activity를 사용합니다. 포합되어있지 않다면, 어떠한 state 없이 완전히 새로운 window를 만들 수 있습니다. 
+
+이것은 무슨일이 있어도, 사용자는 background에서 scene이 연결이 끊어지는것을 알아차리지 못한다는 것을 의미합니다. 
+
+
+<img width="1286" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/c51b9329-8505-4877-a915-b720550c29ad">
+
+마지막으로, mutiple window 지원을 채택했을때 발생할 수 있는 하나이상의 중요한 이슈에 알아 보겠습니다.  
+
+이것이 앱의 scene을 동기화 상태로 유지하는 것이 가장 좋은 방법입니다. 구체적으로 보면.
+
+<img width="1241" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/13322800-f05a-49dd-987b-6aea90c0eae4">
+
+chat 앱을 작업중입니다. iOS13의 muliple window 지원을 추가했습니다. 
+
+그리고 친구와 채팅했습니다. 두개의 같은 대화를 두개의 다른 view controller와 두개의 다른 scene에서 동시에 보고 있는 중입니다. 
+
+한개의 VC에서 메세지를 보냅니다. 이미지와 같이, 한개의 scene에서만 업데이드 되었습니다. 
+
+왜 그럴까요? 
+
+<img width="1257" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/80a90aea-98ac-422b-8722-26c0ce6da02b">
+
+많은 앱이 view controller가 이벤트를 수신하는 방식으로 구성되어 있습니다. (아마 button tap을 통해~ ). 그런 다음 ViewController는 자체가 UI Update를 합니다. 그 후에, ViewController는 model 또는 model controller에게 알립니다. 이것은 하나의 UI 인스턴스이 대해서만 이야기 할때는 대부분 괜찮습니다.  
+
+그러나 동일한 데이타를 보여주는 다른 scene에서의 viewController를 도입하면, 새로운 viewController는 새로운 데이터로 자체 업데이트 하라는 알림 을 전혀 받지 않습니다. 
+
+이것이 문제입니다. 
+
+우리는 해결할 수 있습니다.  
+
+<img width="1291" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/51289923-baff-4c31-9382-3016cb0cd197">
+
+구조적으로, VC는 이벤틑 받은 후에, 즉시 그리고 오직 model controller에게만 알립니다. 그런다응 model controller는 관련 subscriber나 view controller에게 알립니다. 새로운 데이터로 업데이트 해야 한다고 알릴 수 있습니다. 
+
+
+이를 수행 할 수 있는 방법에는 여러가지가 있습니다. delegate, notification, Combine 프레임워크 를 사용할수 있습니다.   
+
+
+<img width="1268" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/5964acfc-de53-4d62-8825-31b93c2ed051">
+
+하지만 앱에 통합하는 것을 고려할 간단한 swift 예제를 보겠습니다.  
+
+메시제를 보낼때 버튼을 누르면 호출되는 메서드는 위와 같습니다. message model 객체를 생성합니다. VC는 자체 view를 업데이트 합니다. 그런다음 유지하도록 model controller에게 알립니다. 
+
+<img width="1242" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/f14e69e2-cee7-4917-9036-9bc3d042dfaf">
+
+우리가 가장 먼저 해야할 일은 Vc가 자신의 view state를 변경해서는 안된다는 것입니다. instead, 해당 코드를 제거할것이고, 나중에 추가 할 것임. 
+
+<img width="1223" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/a99fcb53-36c5-45f4-9fa7-8a100170ee80">
+
+이제 model controller의 add 메소드가 무엇을 하는지 살펴보겠습니다.  
+
+간단히, 새 메시지를 유지하는 것 뿐 입니다.  
+
+그러나 우리는 실제로 업데이트된 VC나 연결된 scene이 있는지 model controller가 알리길 원합니다. 
+
+<img width="1274" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/592e83ac-ff54-43ff-847f-0903973fbc6f">
+
+어떻게 업데이트를 보내나요? 우리는 강력하게 유형화(strongly typed)하고 쉽게 debuggable, testable할 수 있는 (이러한 이벤트를 package하기 위한) 구조화된 방법을 원합니다. 
+
+이제, 새로운 type을 생성하고 업데이트된 이벤트를 호출할 것입니다. 
+
+<img width="1244" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/c9b28a11-f7d6-4928-a93f-fd7ad2bfe55e">
+
+associated values가 있는 swift enum 입니다. 
+
+NewMessage type을 추가하겠습니다.  
+이는 model controller가 새로운 message를 생성한다음 관련된 vc나 scene으로 보낼 객체입니다. 
+우리는 이것은 post하고 싶기 때문에, 우리는 NSNotification center을 이것을위한 backing store(백업저장소?) 로 사용하겠습니다.  
+
+새로운 업데이트 이벤트를 생성한다음 모든 subscriber들에게 게시할 수 있는 편리한 방법을 추가 했습니다. 구현은 매우 간단합니다.  
+
+
+NewMessageNoificationName 채널에 알림만 post하면 됩니다. 하지만 여기서 중요한점은 notification 객체에 UpdateEvent 객체 자체를 포합해야 한다는 것입니다. 잠시후에 살펴 보겠지만 이는 매우 유용할 것입니다. 
+
+<img width="1200" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/5b22743d-a5f8-4532-a99c-476ba01b9404">
+
+이제, model controller가 새로운 메시지가 추가된 것을 전달 받으면, 이를 유지한 후, 새로운 이벤트를 만들고, post() 메소드를 호출 할 수 있습니다. 
+
+<img width="1252" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/1664da3e-6e32-4814-be7b-5f3dde872322">
+
+그런다음, View Controller를 어떻게 변경해야하는지 보면, 우리는 새로운 이벤트를 observe 합니다.  이경우, NewMessageNotificationName 입니다. 
+
+그런다음, argument에 Norification을 받는 handler 메소드를 만듭니다. 업데이트 이벤트를 notification 객체로 전달한다면, 그 이벤트를 notification으로 부터 바로 가져올수 있다는 점을 기억하세요. 
+
+그런다음, 이벤트의 종류에 따라 쉽게 스위칭 할수 있고, associated enum을 만들었기때문에 메시지를 꺼낼 수도 있습니다. 
+
+이제, 이 곳에서 UI를 업데이트 할 수있습니다. 
+
+
+<img width="1756" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/d291c0d0-bd29-4c51-adb5-41e0b63493af">
+
+이제 모든 scene이 업데이트 됩니다. 
+
+<img width="1269" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/d380ffaa-c182-4809-b0e3-91e09680f54c">
+
+scene delegate와 app delegate의 차이점과 책임에 대해 알아보았습니다.  
+
+scene delegate의 몇가지 중요한 메소드와 어떤 작업을 수행해야 하는지 살펴 보았습니다.  
+
+또한 state restoration이 왜 중요한지 어떻게 scene-based API를 활용하는지에 대한 것도 이야기 했습니다.  
+
+마지막으로, 동일 한 데이터를 공유하는 동안 동기화된 scene을 유지하는것과 같은 one-way(단방향) 데이터 흐름을위한 상위레벨의 패턴들에 대해 이야기 했습니다. 
+
