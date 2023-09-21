@@ -1,5 +1,12 @@
 import Foundation
 
 func solution(_ n:Int, _ t:Int) -> Int {
-    return n * (pow(2, t) as NSDecimalNumber).intValue
+    
+    var result = n
+    
+    (0..<t).forEach { _ in
+        result *= 2
+    }
+    
+    return result
 }
