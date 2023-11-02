@@ -24,6 +24,8 @@ func solution(_ relation:[[String]]) -> Int {
         }
     }
     
+    print(1<<4)
+    
     return uniqueAndMinimal.count
 }
 
