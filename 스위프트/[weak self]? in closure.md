@@ -15,10 +15,13 @@
 언제 필요한 것인가에 대한 명확한 이해가 부족하여 공부하게 되었습니다. 
 
 ### index 
-*
-*
-*
-*
+* [unowned self] vs [weak self]
+* closure에서는 언제 retain cycle이 발생하나요?
+* 어떻게 해결할 수 있을까요?
+* 언제 [weak self] 캡처리스트를 사용해야하나요?
+  * 1. escaping Closure? non-escaping closure? 
+  * 2. Delayed Deallocation 지연된 할당해제의 경우
+  * 3. in Nested Closure? 중첩 클로져 에서는?
 
 # [unowned self] vs [weak self]
 
