@@ -192,6 +192,8 @@ print("메모리 해제됨??")
   
 결론은 최상위 escaping closure에만 작성하면됩니다. 상위 클로저에서 이미 retain cycle을 만들지 않기 때문에. 
 
+[읽어볼것 / stack overflow](https://stackoverflow.com/questions/38739129/do-capture-lists-of-inner-closures-need-to-redeclare-self-as-weak-or-unowne)
+
 
 
 ```swift
