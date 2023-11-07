@@ -51,6 +51,7 @@ a?.closure()
 a = nil // SomeClass.instance RC -1
 ```
 <img width="586" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/022cf6f3-c138-4d1a-bd74-d52316f5e86b">  
+
 deinit이 실행이 안되는 상황.. ```SomeClass.instance``` 가 heap에 남아있음. 
 
 </br>
