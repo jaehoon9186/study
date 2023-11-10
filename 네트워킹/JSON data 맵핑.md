@@ -112,11 +112,17 @@ if let breed = try? JSONDecoder().decode(Breed.self, from: jsonData) {
 (예제 jsonData 중 reference_image_id 키 값은 지웠습니다.)
 </br></br></br>
 
-nested json의 경우 또 다른 모델을 정의하여 해결할 수 있고,   
-키의 명칭을 다르게 하여 init 하기 위해서는 CodingKey를 사용할 수 있습니다.   
+nested json의 경우 또 다른 모델을 정의하여 해결할 수 있고, 
+</br>
+
+키의 명칭을 다르게 하여 모델을 만들기 위해서는 CodingKey를 사용할 수 있습니다. 
+</br>
+
 isHairless 프로퍼티의 경우 JSON에서는 1 or 0 으로 Int형이지만 Bool형으로 변환하였습니다.  
 이때는 사용자 정의로 init을 할 수 있도록 init(from decoder: Decoder)를 통해 구현할 수 있습니다.   
 decoder.container(keyedBy: CodingKeys.self)메소드는 이전에 정의된 코딩키를 바탕으로 디코더에 저장된 값들을 가져오는 메서드이며 가져온정보를 바탕으로 프로퍼티를 초기화해주면됩니다. 
+</br>
+
 마지막으로 imageId의 경우 값의 유무를 모르기때문에 옵셔널로 처리하였습니다.   
 이땐, decode() 메서드 대신에 decodeIfPresent() 메서드를 사용하면됩니다. 차이는 decodeIfPresent()는 옵셔널로 리턴합니다. 아니면 try? 를 사용하는 방법도 있습니다. 
 
