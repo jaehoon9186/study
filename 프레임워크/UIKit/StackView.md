@@ -26,9 +26,10 @@ ex)
         let guide = view.safeAreaLayoutGuide
 
         view.backgroundColor = .white
-        self.view.addSubview(stackView)
         stackView.addArrangedSubview(button1)
         stackView.addArrangedSubview(button2)
+
+        self.view.addSubview(stackView)
 
         stackView.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
         // stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
