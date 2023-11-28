@@ -101,3 +101,109 @@ func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI
 이렇게 델리게이트 메서드들이 순차적으로 반복되며 실행이 되고 분기처리를 하여 반환할 변수(suggestionItems)를 업데이트하면 됩니다. 
 
 
+# 예제 
+
+뷰컨트롤러에서 API를 호출하여 데이터를 받는 형식으로 진행하겠습니다. 
+
+### 사용할 api
+url : https://suggestqueries.google.com/complete/search?output=toolbar&hl=kor&q=coffee  
+구글 정식 API는 아니나 사용자들이 발견한 API라고 합니다. q="" 입력된 문자(검색어)를 기반으로 추천하는 검색어를 XML을 반환합니다.  
++ hl=kor : 국적 기반 추천
+
+
+공식 API Documentation을 찾지 못함.. [스택오버플로우 참고](https://stackoverflow.com/questions/5102878/where-is-the-documentation-for-the-google-suggest-api)
+많이 호출하면 차단된다는데. 기준을 모르겠으니 조심..
+ 
+### ViewController
+```swift
+import UIKit
+
+class ViewController: UIViewController {
+
+    private var items: [Suggestion]?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fatchData()
+    }
+
+    func fatchData() {
+        let parser = SuggestionParser()
+
+        let url = "https://suggestqueries.google.com/complete/search?output=toolbar&hl=kor&q=커피"
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+
+        parser.parseFeed(url: encodedUrl) { (suggestionItems) in
+
+            print(suggestionItems)
+            self.items = suggestionItems
+        }
+    }
+}
+```
+### Model
+```swift
+struct Suggestion {
+    let word: String
+}
+```
+
+### XMLParser
+```swift
+import Foundation
+
+// XMLParserDelegate 채택,
+// XMLParserDelegate를 채택하려면 NSObject를 상속받아야 합니다. 
+class SuggestionParser: NSObject, XMLParserDelegate {
+    private var suggestionItems: [Suggestion] = []
+    private var currentElement = ""
+    private var currentWord = ""
+
+    private var parserCompletionHandler: (([Suggestion]) -> Void)?
+
+    func parseFeed(url: String, completionHandler: (([Suggestion]) -> Void)?) {
+        self.parserCompletionHandler = completionHandler
+
+        let request = URLRequest(url: URL(string: url)!)
+        let urlSession = URLSession.shared
+        let task = urlSession.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                if let error = error {
+                    print("???")
+                    print(error.localizedDescription)
+                }
+                return
+            }
+
+            let parser = XMLParser(data: data)
+            parser.delegate = self
+            parser.parse()
+        }
+
+        task.resume()
+    }
+
+    // MARK: - XML Parser Delegate
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+
+        if elementName == "suggestion" {
+            suggestionItems.append(Suggestion(word: attributeDict["data"]!))
+        }
+    }
+
+    func parserDidEndDocument(_ parser: XMLParser) {
+        parserCompletionHandler?(suggestionItems)
+    }
+
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print(parseError.localizedDescription)
+    }
+}
+
+```
+
+### 결과 
+출력된 결과
+```swift
+[SearchApp.Suggestion(word: "커피"), SearchApp.Suggestion(word: "커피머신"), SearchApp.Suggestion(word: "커피집"), SearchApp.Suggestion(word: "커피갤러리"), SearchApp.Suggestion(word: "커피빈"), SearchApp.Suggestion(word: "커피 리브레"), SearchApp.Suggestion(word: "커피챗"), SearchApp.Suggestion(word: "커피냅"), SearchApp.Suggestion(word: "커피 포트"), SearchApp.Suggestion(word: "커피 종류")]
+```
