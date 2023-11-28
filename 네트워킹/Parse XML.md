@@ -35,6 +35,8 @@ task.resume()
 ```
 data로 XMLParser를 생성하고 parse()메서드를 실행하여 파싱을 진행합니다.   
 delegate를 self로 지정합니다. 
+  
+파싱을 멈추고 싶다면 abortParsing()  
 
 # XMLParserdelegate
 [XMLParserdelegate docs](https://developer.apple.com/documentation/foundation/xmlparserdelegate) 참고  
@@ -44,6 +46,9 @@ delegate를 self로 지정합니다.
 * func parser(XMLParser, foundCharacters: String) : 현재 요소(태그)의 문자열이 존재할 때
 * func parserDidEndDocument(XMLParser) : 전체 xml 분석이 성공적으로 끝났을 때
 * func parser(XMLParser, parseErrorOccurred: Error) : 에러 발견시
+   
+빈칸을 인식하여 빈배열을 저장한다면 공백제거가 필요하다.   
+trimmingCharacters(in: .whitespacesAndNewlines), 트리거 방식 등으로.
 
 ```xml
 <!-- xml 시작 -->
