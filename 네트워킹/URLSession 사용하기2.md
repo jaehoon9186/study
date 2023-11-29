@@ -4,6 +4,7 @@
 
 ### API 정보
 * [jsonplaceholder API](https://jsonplaceholder.typicode.com/)
+* [JSONSerialization Docs](https://developer.apple.com/documentation/foundation/jsonserialization)
 
 
 # POST
@@ -24,6 +25,7 @@ func postTest() {
         "body": "bar"
     ]
     request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+    // JSONSerialization 의 data()메서드를 이용해 json으로 변환해 줍니다. 옵션도 알아볼 것. 
 
     let task = URLSession.shared.dataTask(with: request) { data, _, error in
         guard let data = data, error == nil else { return }
