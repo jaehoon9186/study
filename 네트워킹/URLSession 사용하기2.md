@@ -2,7 +2,7 @@
 
 간단한 API로 사용하는 예제를 알아보겠습니다. 
 
-### API 정보
+### 참고
 * [jsonplaceholder API](https://jsonplaceholder.typicode.com/)
 * [JSONSerialization Docs](https://developer.apple.com/documentation/foundation/jsonserialization)
 
