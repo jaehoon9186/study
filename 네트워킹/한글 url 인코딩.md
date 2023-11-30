@@ -14,3 +14,18 @@ let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllow
 - [apple docs](https://developer.apple.com/documentation/foundation/characterset#2902136)
 - [blog](https://hongssup.tistory.com/187)
 - [stackoverflow](https://stackoverflow.com/questions/32974795/url-decode-in-ios)
+
+### extention 으로 더욱 간편하게 
+```swift
+extension String
+{
+    func encodeUrl() -> String?
+    {
+        return self.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+    }
+    func decodeUrl() -> String?
+    {
+        return self.removingPercentEncoding
+    }
+}
+```
