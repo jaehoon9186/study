@@ -13,7 +13,7 @@
 만약 특정 값을 저장한다거나 하는 경우 class/struct를 사용하거나 enum과 같이 사용하거나 하는 경우도 있는 것 같습니다.  
 (error protocol에 대한 공식문서를 보면 관련된 예제가 있음)  
   
-특정 값과 같이 핸들링 하기위해서 enum에서는 연관값(associated value)을 사용할 수 있습니다.  
+특정 값을 포함하여 핸들링? 하기위해서 enum에서는 연관값(associated value)을 사용할 수 있습니다.  
 
 # Custom Error 정의 
 네트워크 작업 중에 발생할 문제들은 대략 이하와 같습니다. 
