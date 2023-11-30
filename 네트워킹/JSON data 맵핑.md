@@ -5,6 +5,9 @@
  / youtube](https://www.youtube.com/watch?v=6yelg66Z0BQ&list=PLWHegwAgjOko-_H8MPHbPJbA24Gel2fg_&index=2)
 * [Encoding and Decoding Custom Types / apple docs](https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types)
 
+### Tool
+- [model 생성](https://app.quicktype.io/)
+
 ### 서두
 JSON 데이터를 swift 에서 사용할 모델로 디코딩 하려고 합니다. 그런데 키값이 스네이크케이스라면? (swift에서는 카멜케이스사용), 데이터 형식을 변환하고 싶다면?
 이럴땐 어떻게 해야할까요.
