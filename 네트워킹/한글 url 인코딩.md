@@ -17,15 +17,9 @@ let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllow
 
 ### extention 으로 더욱 간편하게 
 ```swift
-extension String
-{
-    func encodeUrl() -> String?
-    {
-        return self.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
-    }
-    func decodeUrl() -> String?
-    {
-        return self.removingPercentEncoding
+extension String {
+    func encodeURL() -> String? {
+        return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }
 ```
