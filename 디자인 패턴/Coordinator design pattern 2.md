@@ -5,8 +5,9 @@
 * 구조
   * Application Coordinator
   * Main Coordinator
+  * in navigation Control
   * in Tab Bar Control
-  * subView는?
+  * in ChildViewController
 * ChildCoordinator ?
 * remove child
   * pop ChildCoordinator in navigation controller
@@ -117,5 +118,50 @@ class MainCoordinatorTabBar: Coordinator {
 }
 ```
 
-### in subView 
-만약 한개의 뷰컨트롤러에서 서브뷰를 컨트롤 하려면 어떻게 할까요?
+### in ChildViewController
+참고할 만한 레퍼런스를 찾지못해 일단 한번 만들어 보았습니다. 
+
+```swift
+class MainCoordinator: Coordinator {
+    var rootViewController = UINavigationController()
+    var nowVC: MainViewController?
+
+    func setSub1ViewController() {
+        self.nowVC!.childVC = Sub1ViewController()
+        self.nowVC!.configureChildVC()
+    }
+    func setSub2ViewController() {
+        self.nowVC!.childVC = Sub2ViewController()
+        self.nowVC!.configureChildVC()
+    }
+
+    func start() {
+        let vc = MainViewController()
+        vc.coordinator = self
+        self.nowVC = vc
+        self.rootViewController.viewControllers = [vc]
+    }
+}
+```
+코디네이터에서 mainVC에 접근하기위해 멤버변수로 초기화를 하였습니다. 
+mainVC에서 target/action이 이루어지면 코디네이터의 함수를 실행하고
+mainVC의 childVC변수를 선택한 vc로 초기화하고 컨테이너뷰(mainVC)에 추가하고 오토레이아웃을 다시 잡아줍니다. 
+(초기화해야해서 다시 잡아줘야하는 것 같은데. 잘 모르겠습니다..)
+
+```swift
+// in MainViewController
+func configureChildVC() {
+    addChild(childVC)
+    view.addSubview(childVC.view)
+    childVC.didMove(toParent: self)
+
+    childVC.view.topAnchor.constraint(equalTo: sub2Button.bottomAnchor).isActive = true
+    childVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    childVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    childVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+}
+```
+
+[stackoverflow post](https://stackoverflow.com/questions/53818544/cannot-switch-to-another-child-view-controller-in-container-view) 를 참고하여 내부에서 해결하도록 구성해도 좋을듯 싶다. 
+
+
