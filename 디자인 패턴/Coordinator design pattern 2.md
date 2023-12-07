@@ -10,8 +10,7 @@
   * in ChildViewController
 * ChildCoordinator ?
 * remove child
-  * pop ChildCoordinator in navigation controller
-  * remove ChildCoordinator Func
+* pop ChildCoordinator in navigation controller
 
 ### 참고
 * [Coordinator pattern with Tab Bar Controller/ Medium Post](https://somevitalyz123.medium.com/coordinator-pattern-with-tab-bar-controller-33e08d39d7d)
@@ -165,3 +164,130 @@ func configureChildVC() {
 [stackoverflow post](https://stackoverflow.com/questions/53818544/cannot-switch-to-another-child-view-controller-in-container-view) 를 참고하여 내부에서 해결하도록 구성해도 좋을듯 싶다. 
 
 
+# Child Coordinator 
+
+앱의 규모가 더 커진다면 다양한 흐름으로 구분지을 수 있을 것 이고 이를 차일드 코디네이터로 책임을 줄수 있습니다.  
+이로서 더욱 쉽게 작업을 할 수 있고, 재사용가능한 디자인으로 설계할 수 있게 됩니다.  
+
+### remove child
+부모 코디네이터는 배열, 딕셔너리와 같은 변수를 가져 차일드 코디네이터를 관리합니다. 
+자식 코디네터는 부모에게 자신이 종료 될때 알립니다. 이에 부모는 자식코디네이터를 찾아 remove합니다.  
+
+```swift
+// in child
+func finishCoordinator() {
+    parentCoordinator?.childDidFinish(self)
+}
+```
+```swift
+// in parent
+
+func childDidFinish(_ child: Coordinator?) {
+    for (index, coordinator) in childCoordinators.enumerated()
+           // 같은 클래스를 참조하는지 비교하는것 이기에 참조연산자인 === 사용, coordinator 프로토콜, coordinator가 AnyObject(클래스임을) 프로토콜을 채택하여 비교가능 
+        if coordinator === child {  
+            childCoordinators.remove(at: index)
+            return
+        }
+    } 
+}
+```
+흐름이 단일 뷰라면 단순히 didDismissed 될때 실행하면 될탠데, 여러 단계가 있다면 관리가 쉽지 않을 것입니다. (단순히 뒤로가는 경우 등. )
+
+
+### pop ChildCoordinator in navigation controller
+
+이때는 네비게이션컨트롤러의 델리게이트를 이용할 수 있습니다. 
+
+델리게이트의 didShow 메소드를 사용하여 네비게이션 이동간에 이전뷰(from)을 확인하고 child에서 parent 단게로 돌아오는 특정단계를 체크해 child를 제거합니다. 
+
+```swift
+import UIKit
+
+class ParentCoordinator: NSObject, Coordinator {
+    var childCoordinators = [Coordinator]()
+
+    var navigationController: UINavigationController
+
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+
+    // ParentCoordinator 흐름을 제어할 메서드들 정의
+    // ex
+    /*
+    func showLogin() {
+        // vc 초기화
+        // navigation push
+    }
+     */
+
+    func goChild() {
+        let child = ChildCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        child.start()
+    }
+
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                return
+            }
+        }
+    }
+
+    func start() {
+        let vc = ParentViewController()
+        vc.coordinator = self
+        navigationController.delegate = self
+        navigationController.pushViewController(vc, animated: false)
+    }
+
+}
+
+
+extension ParentCoordinator: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+
+        // 이전뷰(from)
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+
+        // fromVC가 포함됨: push 흐름이 진행중인 상태 -> return
+        // 포함안됨 : pop
+        if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+
+        // fromVC가 childCoordinator의 VC라면 childCoordinator의 흐름이 종료된 것 제거
+        if let childVC = fromViewController as? ChildViewController {
+            childDidFinish(childVC.coordinator)
+        }
+    }
+}
+
+```
+```swift
+import UIKit
+
+class ChildCoordinator: Coordinator {
+    weak var parentCoordinator: ParentCoordinator?
+    var navigationController: UINavigationController
+
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+
+    func finishCoordinator() {
+        parentCoordinator?.childDidFinish(self)
+    }
+
+    func start() {
+        let vc = ChildViewController()
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+}
+```
