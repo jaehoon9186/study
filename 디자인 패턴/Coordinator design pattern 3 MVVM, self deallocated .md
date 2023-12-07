@@ -35,7 +35,7 @@ child Coordinator 단계에서 탈출시 자체적으로 deallocated 할 수 있
 3. Register Coordinator가 ViewModel을 약한 참조 하였기에 2번 단계에서 ViewModel이 할당해제 될 수 있습니다.
 4. RegisterCoordinator도 deallocate 됩니다. 
 
-* ViewModel은 weak var로 선언되어 있어서 ```weak var mv = ViewModel()```이런식으론 rc가 0이여서 바로 deallocate 되서 불가합니다. 그래서 저는 외부에서 주입했음. 
+* ViewModel은 weak var로 선언되어 있어서 ```weak var mv = ViewModel()```이런식으론 rc가 0이여서 바로 deallocate 되서 생성이 불가합니다. 그래서 저는 외부에서 주입했음. 
 
 # 이미지 
 ![화면 기록 2023-12-08 오전 2 22 39](https://github.com/jaehoon9186/study/assets/83233720/02586b87-13cf-4f8d-80ac-b0dcf88e381a)
