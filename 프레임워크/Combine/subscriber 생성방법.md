@@ -1,4 +1,4 @@
-# subscrber 생성방법
+# subscriber 생성방법
 
 ```Subscriber``` 프로토콜을 채택해 subscriber를 직접 만들어 줄수 있지만.   
 
