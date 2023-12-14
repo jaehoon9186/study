@@ -5,6 +5,8 @@
 * [cancel()](https://developer.apple.com/documentation/combine/cancellable/cancel())
 * [AnyCancellable](https://developer.apple.com/documentation/combine/anycancellable)
 
+### 읽어볼
+* [What exactly is a Combine AnyCancellable?](https://www.donnywals.com/what-exactly-is-a-combine-anycancellable/)
 
 # 왜 Cancel 해야하나?
 
