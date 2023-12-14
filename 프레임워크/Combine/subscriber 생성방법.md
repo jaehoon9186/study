@@ -67,7 +67,7 @@ class MyClass {
 
 var myObject = MyClass()
 let myRange = (0...2)
-cancellable = myRange.publisher
+let cancellable = myRange.publisher
     .assign(to: \.anInt, on: myObject)
 
 
@@ -86,9 +86,16 @@ documentation에서 볼 수 있듯이 assign은 strong 참조를 하기 때문�
 
 <img width="1023" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/0d79138f-e066-406d-a6c7-052fca0fbe48">
 
+
+다른 퍼블리셔의 다운스트림을 @Published 퍼블리셔로 할당한다. 
+
 to: ```@Published```로 표기된 속성에 적용 가능합니다.  
 
-assign(to:)메서드는 subscription 라이프 사이클을 관리하기때문에 업스트립의 퍼블리셔가 deinit되면 자동을 cancel 됩니다. 따라서 assign(to:on:)과 달리 AnyCancellable을 반환하지 않습니다. 
+assign(to:)메서드는 subscription 라이프 사이클을 관리하기때문에 업스트립의 퍼블리셔가 deinit되면 자동을 cancel, 구독취소 됩니다.
+
+이때문에(?) assign(to:on:)과 달리 AnyCancellable을 반환하지 않습니다. 
+
+
 
 ```swift
 class MyModel: ObservableObject {
