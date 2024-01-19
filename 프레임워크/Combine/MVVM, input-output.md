@@ -1,13 +1,14 @@
 # MVVM, input-output.md
 
-<img width="745" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/5edde9de-236f-4bb8-9ac1-de635afbacd3">
+<img width="700" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/b8ef40ad-296b-42a5-8bd3-0d5af2a18b59">
+
 
 View와 ViewModel사이 Input, Output을 정의합니다. 
 
 * 구조화 함으로 이벤트흐름을 파악하기 쉽다.(가독성 )
 * 비동기처리를 간단하게 작업가능, 여러 퍼블리셔를 결합하기도 용의하다고함.
 
-rxSwfit MVVM에 많이 사용된 패턴같은데 Combine은 정형화된 레퍼런스가 뭔지 모르것네요. 
+rxSwfit MVVM에 많이 사용된 패턴같은데 Combine은 많이들사용하는 정형화된 레퍼런스가 뭔지 모르것네요. 
 
 
 ### 참고 
@@ -25,5 +26,5 @@ View에서는 Output을 subscribe하고, ViewModel에서는 Input을 Subscribe�
 3. Output를 반환
 
 
-
-
+# 적용
+- [개인 프로젝트 / SearchAPP](https://github.com/jaehoon9186/SearchAPP) 
