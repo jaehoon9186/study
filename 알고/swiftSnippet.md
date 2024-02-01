@@ -321,6 +321,23 @@ func isPrime(_ number: Int) -> Bool {
 }
 ```
 
+### 소수 리스트
+```swift
+// 구할 최대값까지 배열 선언
+list[0] = false
+list[1] = false
+
+for (i, v) in list.enumerated() {
+    if v {
+        for j in stride(from: i + i, to: list.count, by: i) {
+            list[j] = false
+        }
+    }
+}
+let primeList = list.enumerated().filter { $1 }.map { $0.offset }
+
+```
+
 ### 제곱연산
 ```swift
 // float or decimal
