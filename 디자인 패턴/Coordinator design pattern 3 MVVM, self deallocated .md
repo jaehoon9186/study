@@ -22,6 +22,7 @@ child Coordinator 단계에서 탈출시 자체적으로 deallocated 할 수 있
 
 예시로 메인흐름 중 회원가입흐름(Register Coordinator)단계로 진행하는 과정을 표현해 보았습니다.  
 
+** ViewModel에서 Coordinator로 가는 것보다 View에서 ViewModel로 가는것이 맞음. ViewModel에서는 View에 관한 로직을 수행하지 않도록.. 
 
 # deallocated 단계별 설명
 <img width="883" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2964b7e5-3341-4034-8adf-14abe96cb55f">
