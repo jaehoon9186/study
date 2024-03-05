@@ -96,6 +96,17 @@ class DoublyLinkedList<T> {
 
         return currentNode
     }
+
+    func length() -> Int {
+        var currentNode = head
+        var length = 0
+        while currentNode != nil {
+            length += 1
+            currentNode = currentNode?.next
+        }
+        return length
+    }
+
 ```
 
 # 링크드리스트에 값추가(push, append, insert)
