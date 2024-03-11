@@ -1,47 +1,41 @@
+
 let input = readLine()!.split(separator: " ").map { Int($0)! }
 let (n, m) = (input[0], input[1])
-var distance = Array(repeating: Array(repeating: 0, count: m), count: n)
-var box: [[Int]] = []
 
-let dx = [0, 0, -1, 1]
-let dy = [-1, 1, 0, 0]
+var box: [[Int]] = []
+var dx = [0, 0, 1, -1]
+var dy = [1, -1, 0, 0]
+var stack: [[Int]] = []
+
+var distance = Array(repeating: Array(repeating: 0, count: m), count: n)
 
 for _ in 0..<n {
-    let temp = readLine()!.map { Int(String($0))! }
-    box.append(temp)
+    box.append(readLine()!.map { Int(String($0))! } )
 }
 
+// bfs
 
-func bfs(_ row: Int, _ col: Int) {
+stack.append([0, 0])
+distance[0][0] = 1
 
-    var queue: [[Int]] = []
+while !stack.isEmpty {
+    let last = stack.removeFirst()
+    for i in 0..<4 {
+        let nextX = last[0] + dx[i]
+        let nextY = last[1] + dy[i]
 
-    box[row][col] = 0
-    distance[row][col] = 1
-    queue.append([row, col])
-
-    while queue.isEmpty == false {
-        let now = queue.removeFirst()
-
-        for i in zip(dy, dx) {
-            let (nextY, nextX) = (now[0] + i.0, now[1] + i.1)
-
-            if nextY < 0 || nextY >= n || nextX < 0 || nextX >= m {
-                continue
-            }
-
-            if box[nextY][nextX] == 1 {
-                queue.append([nextY, nextX])
-                box[nextY][nextX] = 0
-                distance[nextY][nextX] = distance[now[0]][now[1]] + 1
-            }
-
+        if nextX < 0 || nextX >= n || nextY < 0 || nextY >= m {
+            continue
         }
 
-    }
+        if box[nextX][nextY] == 0 || distance[nextX][nextY] != 0  {
+            continue
+        }
 
+        stack.append([nextX, nextY])
+        distance[nextX][nextY] = distance[last[0]][last[1]] + 1
+    }
 }
 
-bfs(0, 0)
 
-print(distance[n - 1][m - 1])
+print(distance[n-1][m-1])
