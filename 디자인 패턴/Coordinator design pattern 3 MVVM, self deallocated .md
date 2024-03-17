@@ -15,14 +15,14 @@ child Coordinator 단계에서 탈출시 자체적으로 deallocated 할 수 있
 
 따라서, navigationContollerDelegate를 이용하지 않고 **ARC**(automatic reference counting)만을 이용하여 자식 코디네이터를 deinit 하도록 구현하였습니다. 
 
-참고링크의 작성자는 1:1(VM:View)관계로 구성하였으나, MVVM은 1:N(VM:View)으로 구성할 수 있어야 하는것으로 알고 있어서 참고된 글과는 다르게 구성해 보았습니다. (이 방법이 맞는지는 확신없음.. )  
+~~(이 방법이 맞는지는 확신없음.. )~~
 
 # 뷰 흐름도 
 <img width="990" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/f72bb115-2451-4094-959f-11df57fd5c73">
 
 예시로 메인흐름 중 회원가입흐름(Register Coordinator)단계로 진행하는 과정을 표현해 보았습니다.  
 
-** ViewModel에서 Coordinator로 가는 것보다 View에서 Coordinaotr로 가는것이 맞음. ViewModel에서는 View에 관한 로직을 수행하지 않도록.. 
+** ViewModel에서 Coordinator로 가는 것보다 **View에서 Coordinator로** 가는것이 맞음. ViewModel에서는 View에 관한 로직을 수행하지 않도록.. 
 
 # deallocated 단계별 설명
 <img width="883" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/2964b7e5-3341-4034-8adf-14abe96cb55f">
