@@ -196,3 +196,12 @@ TabView {
 }
 ```
 
+```swift
+// badge Color
+UITabBarItem.appearance().badgeColor = .blue
+```
+
+
+### 탭바 커스텀하기 
+[SwiftUI Custom TabView With Custom Add Button](https://www.youtube.com/watch?v=v19fln0e_qQ)
+
