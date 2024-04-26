@@ -25,4 +25,4 @@ UIKit의 각각의 View 컴포넌트들은 상속으로 이뤄져있기에 무�
   
 struct의 단점?을 보완한 점. 
 - 상속을 대신해 ViewModifier
-- 맴버변수를 변경하기위해 mutating 키워드를 사용해야함, @State 도입.
+- 맴버변수를 변경하기위해 mutating 키워드를 사용해야함, @State 등 도입.
