@@ -7,7 +7,8 @@
 # @Environment?
 Environment property wrapper를 사용해 환경변수에 대한 정보를 get할 수 있다.  
 
-형식은? ```@Environment(\.colorScheme) var ColorScheme: ColorScheme``` keypath( KeyPath<EnvironmentValues, Value> )로 환경변수에 접근하고, 해당 property로 view의 구성을 사용자가 정의할 수 있다.   
+형식은? ```@Environment(\.colorScheme) var ColorScheme: ColorScheme```   
+keypath( KeyPath<EnvironmentValues, Value> )로 환경변수에 접근하고, 해당 property로 view의 구성을 사용자가 정의할 수 있다.   
 
 
 
@@ -63,11 +64,17 @@ colorSceme이 예제로 나와서.. 내부에 어떻게 구현이 되어있는�
 - [https://developer.apple.com/documentation/swiftui/environmentkey](https://developer.apple.com/documentation/swiftui/environmentkey)  
 
 전역으로 사용할 수 있는 AppColor를 정의해 보자.  
+먼저 관리하기 편하기 그룹을 만들어준다.  
 <p align="center">
   <img width="277" alt="스크린샷 2024-05-02 오후 9 39 20" src="https://github.com/jaehoon9186/study/assets/83233720/0522d86f-6f1e-42f8-9289-1cb6dcd93d2a">
 </p>
-먼저 관리하기 편하기 그룹을 만들어준다.  
 
+
+
+
+</br>
+</br>
+  
 1. Custem EnvironmentKey 구현 / EnvironmentKey 프로토콜 채택
 
 ```swift
@@ -77,6 +84,9 @@ struct AppColorKey: EnvironmentKey {
 ```
 (associatedtype 이 프로토콜에 정의되있어 typealiases를 정의해야하는데 구체적 타입을 명시해여 생략가능함.)
 
+</br>
+</br>
+  
 2. 새로운 environment value 정의
 
 ```swift
@@ -91,7 +101,13 @@ extension EnvironmentValues {
     }
 }
 ```
-
+```swift
+// in view, propertys
+@Environment(\.appColor) var appColor
+```
+</br>
+</br>
+  
 3. ***+⍺*** View extension
 ```swift
 extension View {
@@ -102,7 +118,9 @@ extension View {
 ```
 view 프로토콜을 채택한 구현체에서 쉽게 적용이 가능하도록한다. 
 
-
+</br>
+</br>
+  
 +  
 유튭영상에선 Custom Environment를 활용해, 멤버십단계에 따라 테마컬러를 다르게 적용하는 예제가 소개되었음. 
 
@@ -115,13 +133,13 @@ view 프로토콜을 채택한 구현체에서 쉽게 적용이 가능하도록�
 
 
 ## 궁금증 해소 
-### 접근하기 위한 keyPath를 정의할 때 getter, setter에 [] 브라켓은 뭘말하는거야?
+### custom environment value를 정의할 때, getter, setter에 [] 브라켓은 뭘 말하는거야?
 ```swift
 public struct EnvironmentValues : CustomStringConvertible {
     // 생략 
     public subscript<K>(key: K.Type) -> K.Value where K : EnvironmentKey
 }
 ```
-EnvironmentValues의 정의를 보면 subscript로 정의 되었음을 알 수 있다. 배열이랑, 딕셔너리도 이와같은 subscript로 구현되어있음. subscript에 대해 잘 몰았어서.. 
+EnvironmentValues의 정의를 보면 subscript로 정의 되었음을 알 수 있다. 배열이랑, 딕셔너리도 이와같은 subscript로 구현되어있음. subscript에 대해 잘 몰랐어서.. 
 뭐지 싶었다.  
 
