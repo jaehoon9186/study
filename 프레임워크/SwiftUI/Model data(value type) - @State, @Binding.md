@@ -1,4 +1,4 @@
-# Model data(view state) - @State, @Binding
+# Model data(value type) - @State, @Binding
 
 - [article docs / Managing user interface state](https://developer.apple.com/documentation/swiftui/managing-user-interface-state)
 - [youtube / SwiftUI tutorial for Beginners - @State vs @Binding - How to pass data between views?](https://www.youtube.com/watch?v=q8nBhtmuKXs)
@@ -24,14 +24,14 @@ property wrapper애 대한 자세한 내용은 아래링크를 참고바랍니�
 [링크 swift문서](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/properties/#Property-Wrappers)  
 
 
-SwiftUI에서는 @State 라는 캡슐화된 propertyWrapper를 사용해 뷰를 재사용성 있게 함. 
+SwiftUI에서는 @State 라는 캡슐화된 propertyWrapper를 사용해 뷰를 재사용성 있게 함.  
 
-didset과 같은 느낌인데 왜? @State라는 propertyWrapper를 만들었을까?
+only value type  
 
-swiftUI의 View는 struct임. member property를 변경하려면 mutating 키워드를 사용해야함. 
+didset과 같은 느낌인데 왜? @State라는 propertyWrapper를 만들었을까?  
+swiftUI의 View는 struct임. member property를 변경하려면 mutating 키워드를 사용해야함.   
 
 값이 변경되면 어떻게 뷰를 rerender할까?
-
 
 
 
@@ -41,7 +41,8 @@ swiftUI의 View는 struct임. member property를 변경하려면 mutating 키워
   <img width="589" alt="스크린샷 2024-04-30 오후 10 28 21" src="https://github.com/jaehoon9186/study/assets/83233720/c641f7e1-eff2-4adb-b234-0d222e352c1b">
 </p>
 
-위의 이미지 
+@State로 생성된 객체를 전달 받기 위해서 @Binding property wrapper 사용. 수정가능하도록.  
+
 
 
 # 구현
