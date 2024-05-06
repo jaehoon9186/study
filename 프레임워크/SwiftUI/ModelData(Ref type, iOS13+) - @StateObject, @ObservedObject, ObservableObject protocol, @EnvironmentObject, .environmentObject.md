@@ -14,7 +14,7 @@
 
 ***reference type***에서는  @StateObject, @ObservedObject, ObservableObject protocol 을 사용함. 
 
-iOS17+ 에서는 Observation 프레임워크에 @Observable macro를 사용하여 좀더 간단하게 구연이 가능함. 
+iOS17+ 에서는 Observation 프레임워크에 @Observable macro를 사용하여 좀더 간단하게 구현이 가능함. 
 
 # 사용
 
