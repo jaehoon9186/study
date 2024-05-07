@@ -1,4 +1,4 @@
-# ModelData(Ref type, iOS13+) - @StateObject, @ObservedObject, ObservableObject protocol, @EnvironmentObject, .environmentObject
+# ModelData(Ref type, iOS13+) - @StateObject(14+), @ObservedObject, ObservableObject protocol, @EnvironmentObject, .environmentObject
 
 ### 참고
 - [docs / Monitoring data changes in your app](https://developer.apple.com/documentation/swiftui/monitoring-model-data-changes-in-your-app)
@@ -13,6 +13,7 @@
 ***value type***에서는 @State, @Binding property wrapper를 사용해 생성, 바인딩 했다면,  
 
 ***reference type***에서는  @StateObject, @ObservedObject, ObservableObject protocol 을 사용함. 
+(@StateObject는 iOS 14+ 이상부터..)
 
 iOS17+ 에서는 Observation 프레임워크에 @Observable macro를 사용하여 좀더 간단하게 구현이 가능함. 
 
@@ -78,6 +79,9 @@ struct ChildView: View {
     }
 }
 ```
+> iOS 13까지는 @StateObject가 없어 @ObservedObject로 생성, 전달하였음. 지금도 생성가능하나 애플 문서를 보면 전달받는 용도로 사용하길 권장하는 것같다.  
+> 상위뷰의 @State에 의해 뷰가 re-rander되면 @ObservedObject에 의해 생성 된 오브젝트또한 다시 init되는 문제가 발생해. 이를 해결하기 위해 iOS14 에서 @StateObject 등장함.  
+
 
 </br>
 </br>
@@ -89,6 +93,7 @@ struct ChildView: View {
 
 </br>
 </br>
+
 
 
 # @EnvironmentObject, .environmentObject
