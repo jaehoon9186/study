@@ -48,7 +48,7 @@ sink 메소드에서 completion은 .finished, .failure 두가지 경우로 구�
 
 <img width="1051" alt="image" src="https://github.com/jaehoon9186/study/assets/83233720/21a5cac9-bb39-4b2c-8b82-6542f37025d1">
 
-```sink(receiveValue:)``` Failure가 Never인경우 value만 받을 수 있는 메소드도 있습니다. 
+```sink(receiveValue:)``` < 핸들링 안하고 value만   
 
 
 # assign(to:on:)
@@ -111,11 +111,15 @@ class MyModel: ObservableObject {
 
 assign(to:)메서드에는 inout 키워드가 있어 ```&``` 사인을 사용하고, @Published 로 선언된 프로퍼티에 할당하기 위해 ```$``` 사인을 사용합니다. 
 
+> 이경우 cancellables에 저장하거나, 처리할 필요가 없다. @Publised가 속한 class 가 deinit될때 같이 deinit됨.
+> [https://www.youtube.com/watch?v=5NfhgZkBKKg 1:30:00경 ](https://www.youtube.com/watch?v=5NfhgZkBKKg)
+
 
 # <추가> assign() 사용시 
 Available when Failure is Never.
 
 ```.replaceError(with: [])```, ```.replaceError(with: Data())``` 로 에러를 없애고 사용할 수도.
+또는,   
 
-
+```.catch { error in return Just(value) }``` ? ? 
 
