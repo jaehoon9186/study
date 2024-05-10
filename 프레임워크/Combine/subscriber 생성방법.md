@@ -112,7 +112,10 @@ class MyModel: ObservableObject {
 assign(to:)메서드에는 inout 키워드가 있어 ```&``` 사인을 사용하고, @Published 로 선언된 프로퍼티에 할당하기 위해 ```$``` 사인을 사용합니다. 
 
 
+# <추가> assign() 사용시 
+Available when Failure is Never.
 
+```.replaceError(with: [])```, ```.replaceError(with: Data())``` 로 에러를 없애고 사용할 수도.
 
 
 
