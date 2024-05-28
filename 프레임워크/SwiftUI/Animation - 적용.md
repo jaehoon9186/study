@@ -109,21 +109,3 @@ binding 파라미터를 사용하는 ui components들에 적용가능. 위와 �
 (근데 binding 파라미터를 이용하지 않고, 그냥 1,2 번으로 동작하도록 구성하는것이 더 편할 것 같음.. )
 
 
-# Animatable protocol 
-
-Animatable 프로토콜을 채택 유무를 기준으로 애니메이션 적용 대상을 결정함. 
-
-
-You can animate other values by making your custom views conform to the Animatable protocol,
-
-
-
-
-# Transaction
-
-콘텍스트 전파 방법? 
-
-
-# 내부 동작은 어떻게 이뤄짐?
-
-
