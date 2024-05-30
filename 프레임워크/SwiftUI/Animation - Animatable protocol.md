@@ -67,16 +67,21 @@ CGPoint, CGSize == 2차원 벡터
 CGRect == 4차원 벡터  
 
 
-2개, 3개 이상의 animatableData를 갖는다면  
+2개, 3개 이상의 백터로, animatableData를 갖는다면  
 AnimatablePair, EdgeInsets 를 사용하는 방법이 있음.  
 
 
 애니메이션 동작 중 스유는 view를 계속 regenerating하며 그때마다 animating parameter를 계속 수정함.   
 
+주의, 커스텀 Animatable은 모든 프레임에 대해 바디를 실행해 내장 effect보다 더 많은 리소스가 사용될 수 있다함.  
+(내장만으로 불가 할때 구현할 것을 권장한다함. )  
+
+
 
 아래 예와 같이 custom shape에도 적용이 가능, custom view도 가능.  
 
-# custom shape 
+
+# i.g. custom shape 
 
 ```swift
 struct Trapezoid: Shape {
