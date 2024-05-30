@@ -95,3 +95,22 @@ MARK3 명시적으로 애니메이션을 적용한 경우.
 </p>
 
 
+---
+in implicit, transaction 전달 예제
+
+```swift
+Circle()
+    .fill(.yellow)
+    .opacity(isAnimated ? 0.2 : 1.0)
+    .animation(nil, value: isAnimated)
+    .scaleEffect(isAnimated ? 0.5 : 0.2)
+    .animation(.default, value: isAnimated)
+```
+
+<p align="center">
+  <img height="250" src="https://github.com/jaehoon9186/study/assets/83233720/60ace990-d222-44c0-97cd-ddb1f757039b">
+  <img height="250" src="https://github.com/jaehoon9186/study/assets/83233720/db972282-81a1-401d-bb55-9134f1aa43d9">
+</p>
+
+
+순차적으로 전달되어서, scaleEffect는 .default애니메이션, opacitiy 모디파이어는 Nil이 적용된모습.
