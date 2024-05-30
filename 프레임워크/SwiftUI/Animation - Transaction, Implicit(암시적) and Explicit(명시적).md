@@ -109,7 +109,7 @@ Circle()
 
 <p align="center">
   <img height="250" src="https://github.com/jaehoon9186/study/assets/83233720/60ace990-d222-44c0-97cd-ddb1f757039b">
-  <img height="250" src="https://github.com/jaehoon9186/study/assets/83233720/db972282-81a1-401d-bb55-9134f1aa43d9">
+  <img height="250" src="https://github.com/jaehoon9186/study/assets/83233720/3cfa0cf9-8a73-4054-81c3-9f94d784b6ad">
 </p>
 
 
