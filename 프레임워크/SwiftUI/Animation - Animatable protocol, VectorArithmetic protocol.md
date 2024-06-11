@@ -1,10 +1,13 @@
-# Animation - Animatable protocol.md
+# Animation - Animatable protocol, VectorArithmetic protocol
 
 ### 참고
 - [apple docs / Animatable](https://developer.apple.com/documentation/swiftui/animatable)
 - [https://swiftui-lab.com/swiftui-animations-part1/](https://swiftui-lab.com/swiftui-animations-part1/)
 - [https://www.youtube.com/watch?v=27ZvPQMYS6E&t=348s](https://www.youtube.com/watch?v=27ZvPQMYS6E&t=348s)
 - [https://youtu.be/YSBXJvANWSo](https://youtu.be/YSBXJvANWSo)
+- [https://swiftwithmajid.com/2020/06/17/the-magic-of-animatable-values-in-swiftui/](https://swiftwithmajid.com/2020/06/17/the-magic-of-animatable-values-in-swiftui/)
+- [백터이해 유튜브](https://www.youtube.com/watch?v=fNk_zzaMoSs)
+- [https://nerdyak.tech/development/2020/01/12/animating-complex-shapes-in-swiftui.html](https://nerdyak.tech/development/2020/01/12/animating-complex-shapes-in-swiftui.html)
 
 # 
 [AnimatableModifier](https://developer.apple.com/documentation/swiftui/animatablemodifier) 는 삭제. (~ iOS 17.5)
@@ -21,7 +24,11 @@ Animatable 프로토콜을 채택한 뷰를 애니메이션이 동작할 대상�
 
 AnimatableData 타입은 VectorArithmetic 프로토콜을 준수하는 타입.  
 
-이를 통해 값을 보간함. 
+벡터산술연산에 필요한 프로퍼티 메서드를 제공. 객체의 상태를 변화시키는데 사용?  
+
+
+
+
 
 ```swift
 /// A type that describes how to animate a property of a view.
@@ -35,7 +42,7 @@ public protocol Animatable {
     var animatableData: Self.AnimatableData { get set }
 }
 ```
- 
+
 VectorArithmetic? 수학시간에 배웠던.. 벡터를 바탕으로 동작. 곱, 합 등을 하며  
 ```swift
 /// A type that can serve as the animatable data of an animatable type.
@@ -69,6 +76,13 @@ CGRect == 4차원 벡터
 
 2개, 3개 이상의 백터로, animatableData를 갖는다면  
 AnimatablePair, EdgeInsets 를 사용하는 방법이 있음.  
+
+```AnimatablePair<CGFloat, AnimatablePair<CGFloat, AnimatablePair<CGFloat, CGFloat>>>``` 요론식으로 쓸 순 있겠지만 유연하지 않음. 
+
+이때, VectorArithmetic 프로토콜을 채택해 커스텀한 벡터 타입을 구현해보자. 
+
+
+
 
 
 애니메이션 동작 중 스유는 view를 계속 regenerating하며 그때마다 animating parameter를 계속 수정함.   
