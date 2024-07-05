@@ -175,7 +175,7 @@ proposal은 조합 될 수 있음. 예를 들어 width 0.0, height: .infinity
 
     차차
 
-* view properties
+* child view 우선순위
 
     child views 의 모디파이어를 통해 우선순위를 정한다면, 프록시의 .priority 프로퍼티를 바탕으로 사용자 정의 가능.
 
