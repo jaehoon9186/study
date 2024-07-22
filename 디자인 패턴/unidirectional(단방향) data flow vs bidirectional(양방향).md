@@ -77,12 +77,23 @@ aka. one-way data binding
 
 
 
+# MVVM은 양방향이야? 단방향이야? 
+- [https://dev.to/aryclenio/unidirectional-and-bidirectional-data-flow-the-ultimate-front-end-interview-questions-guide-pt-1-5cnc](https://dev.to/aryclenio/unidirectional-and-bidirectional-data-flow-the-ultimate-front-end-interview-questions-guide-pt-1-5cnc)
+- [https://axiomatic-fuschia-666.notion.site/Chapter-2-TCA-6b5165bd46ee43fdb9b915d5d581fd6a](https://axiomatic-fuschia-666.notion.site/Chapter-2-TCA-6b5165bd46ee43fdb9b915d5d581fd6a)
+
+TCA의 한국 번역문서를 보면 MVVM은 단방향 아키텍처라고 소개함.. 
+
+MVVM에서는 바인딩을 사용하는데. 단방향이 맞는갈까?
+
+
 
 
 # SwiftUI의 property wrapper는 양방향 데이터 플로우를 따른다?
 
 
-swiftUI의 프로퍼티 래퍼는 양방향이다? < 근거?  
+swiftUI의 프로퍼티 래퍼는 양방향이다?  
+흐름이 양방향 바인딩.  
+@State등의 프로퍼티 래퍼를 사용하면 모델을 변경하고 뷰 까지 반영되는 흐름이 같은 방향
 
 그래서 combine을 사용하는 TCA에서는 단방향으로 사용하기 위해 ~하도록 제한했음? 
 
