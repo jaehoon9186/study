@@ -1,5 +1,10 @@
 # iOS Architecture Patterns *MVC,MVP,MVVM,VIPER*
 
+
+![image](https://github.com/user-attachments/assets/a75b541d-a641-4b51-82fa-89e2d65ba5f8)
+
+
+
 ## 왜 Architecture Patterns을 선택하는 것을 신경써야하나?
 
 언젠가 많은 기능들이 엮인 클래스를 디버깅하게 되는 경우가 온다면, 문제를 찾고 해결하기 매우 어려울 것이다.  
