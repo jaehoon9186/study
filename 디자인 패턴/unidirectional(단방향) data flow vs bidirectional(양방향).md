@@ -80,10 +80,9 @@ aka. one-way data binding
 # MVVM은 양방향이야? 단방향이야? 
 - [https://dev.to/aryclenio/unidirectional-and-bidirectional-data-flow-the-ultimate-front-end-interview-questions-guide-pt-1-5cnc](https://dev.to/aryclenio/unidirectional-and-bidirectional-data-flow-the-ultimate-front-end-interview-questions-guide-pt-1-5cnc)
 - [https://axiomatic-fuschia-666.notion.site/Chapter-2-TCA-6b5165bd46ee43fdb9b915d5d581fd6a](https://axiomatic-fuschia-666.notion.site/Chapter-2-TCA-6b5165bd46ee43fdb9b915d5d581fd6a)
+- [https://doing-programming.tistory.com/entry/SwiftUI-%EC%97%90%EC%84%9C-MVVM-%EC%9D%84-%EB%A9%88%EC%B6%B0%EC%95%BC-%ED%95%98%EB%8A%94%EA%B0%80](https://doing-programming.tistory.com/entry/SwiftUI-%EC%97%90%EC%84%9C-MVVM-%EC%9D%84-%EB%A9%88%EC%B6%B0%EC%95%BC-%ED%95%98%EB%8A%94%EA%B0%80)
 
-TCA의 한국 번역문서를 보면 MVVM은 단방향 아키텍처라고 소개함.. 
 
-MVVM에서는 바인딩을 사용하는데. 단방향이 맞는갈까?
 
 
 
