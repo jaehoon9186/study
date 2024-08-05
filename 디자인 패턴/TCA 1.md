@@ -128,6 +128,15 @@ SSOT(단일 진실 공급원, Single Source Of Truth)을 따를수 있음.
 </p>
 
 
+### 간단히? 
+* State:
+* Action:
+* Reducer: 
+* Dependecy: 
+* Effect: 
+* Store & ViewStore: 
+
+
 
 ## 🎯 State
 : 비지니스로직을 수행하기 위한 데이터, UI를 렌더링 하기위해 필요한 데이터.  
@@ -197,7 +206,7 @@ enum Action: Equatable {
 Action을 바탕으로 State를 변경(mutating)하거나, Effect가 존재하면 Store를 통해 어떻게 실행되어야 하는지를 설명하는 
 
 
-프로토콜을 채택하거나, @Reducer 메크로 사용 <- 이게 Reducer야? Feature에 하는데.. 바로 ```let reducer: Reducer<,>``` 이렇게 변수로 사용할 수도 있다는 것 같음.  
+프로토콜을 채택하거나, @Reducer 메크로 사용 <- 이게 Reducer야? Feature에 하는데.. ? ```let reducer: Reducer<,>``` 이렇게 변수로 사용할 수도 있다는 것 같음.  
 
 ㄹㅇ Reducer는 변경을 처리하기 위한 로직을 정의한 것.  
 
@@ -206,28 +215,140 @@ Reducer를 정의 하는 방법은 두가지가 있음. [reducer 문서](https:/
 
 ```swift
 public protocol Reducer<State, Action> {
-  func reduce(into state: inout State, action: Action) -> Effect<Action>
+  func reduce(into state: inout State, action: Action) -> Effect<Action> // 1
   
   @ReducerBuilder<State, Action>
-  var body: Body { get }
+  var body: Body { get } // 2
 }
 
 ```
 
 ### 1. reduce 메서드. reduce(into state: inout State, action: Action) -> Effect<Action>
 ```swift
-
+func reduce(into state: inout State, action: Action) -> Effect<Action> {
+        switch action {
+        case .decrementButtonTapped:
+            state.count -= 1
+            return .none
+       }
+}
 ```
+기본적인 방법.  
+리듀서의 로직을 reduce(into:action:) 메서드 내에서 구현하는 방식.  
+다른 리듀서와의 결합이 필요없는 경우.  
+
 
 ### 2. body 연산프로퍼티 get. Opaque Type(불투명한 타입, 'some')으로 반환
 ```swift
+var body: some ReducerOf<Self> {
+	Reduce { state, action in
+	    switch action {
+	    case .decrementButtonTapped:
+		state.count -= 1
+		return .none
+	    }
+	}
 
+	// + 다른 리듀서들
+	Activity()
+  	Profile()
+  	Settings()
+}
 ```
+더 고수준적인 방법.  
+```body```속성 내에서 직접 상태 변경 또는 효과 로직을 수행하지 않고, 여러 ```다른 리듀서를 조합하는 방식```으로 주로 사용됨.  
+리듀서가 작은 단위로 나눠진다면 이방법을 사용하는 것이 편리함.  
+
+불투명타입(Opaque Type)으로 방출 할 수 있게 됨. 연산 프로퍼티로 만든 리듀서 끼리 조합이 가능해진다는 뜻.  
+
 
 ## 🎯 Dependency
+
+```swift
+struct CounterFeature: Reducer {
+    @Dependency(\.continuousClock) var clock
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .toggleTimerButtonTapped:
+                state.isTimerOn.toggle()
+                if state.isTimerOn {
+                    return .run { send in
+			// 주입된 의존성 활용
+                        for await _ in self.clock.timer(interval: .seconds(1)) {
+                          await send(.timerTicked)
+                        }
+                    }
+                    .cancellable(id: CancelID.timer)
+                } else {
+                    // Stop the timer
+                    return .cancel(id: CancelID.timer)
+                }
+            }
+        }
+    }
+}
+```
+
+- [TCA Dependencies](https://pointfreeco.github.io/swift-composable-architecture/1.0.0/documentation/composablearchitecture/dependencymanagement/)
+- [Dependencies Framework](https://pointfreeco.github.io/swift-dependencies/main/documentation/dependencies/)
+- [DependencyValues in Dependencies Framework](https://pointfreeco.github.io/swift-dependencies/1.0.0/documentation/dependencies/dependencyvalues/)
+
+TCA의 종속성 관리시스템은 Dependencies 라이브러리를 사용해 동작함. 
+
+dependency가 필요한경우  
+API, Clock 등 어느 곳에서도 접근가능해야 하는경우.  
+외부와 소통하기 위한.  
+
+과거 TCA 버전의 경우 Environment를 활용했음.  
+최근은 ReducerProtocol 도입으로 관리 방식이 바뀜.  
+
+잘 알고 있듯이 의존성 주입의 장점으로  
+유연성(쉽게 교체 가능한), 재사용성, 테스트 용이성, 유지보수성 을 높일수 있다는 장점이 있음.  
+
+전역 종속성보다 안전  
+
+
+
+### 주입 및 접근 방법
+
+
+
+***주입***  
+외부에서 주입하기 위해선?
+
+
+
+
+***접근***  
+주입받은 의존성에 접근하기 위해선? 
+키패스를 사용함.
+
+```@Dependency``` 프로퍼티 래퍼 사용
+
+
+***정의***  
+사용자 정의 dependency를 만든다면?  
+
+- [https://swiftpackageindex.com/pointfreeco/swift-dependencies/main/documentation/dependencies/designingdependencies#DependencyClient-macro](https://swiftpackageindex.com/pointfreeco/swift-dependencies/main/documentation/dependencies/designingdependencies#DependencyClient-macro)
+- [https://phillip5094.tistory.com/202](https://phillip5094.tistory.com/202)
+
+
+
+
+### Dependency values
+<p align="center">
+	<img width="435" alt="image" src="https://github.com/user-attachments/assets/2c90b7df-cf3c-44a8-8001-db43b38a00b4">
+</p>
+
+다양한 의존성 모듈을 기본적으로 제공함.  
+
+---
+
+
+주의. @Depencency 변수는 static 프로퍼티로 선언 안됨. static은 lazy하기 때문에 처음 사용될때 캡쳐되는데 의도치 않은 동작을 발샐시킬 수 있음. 
 
 ## 🎯 Effect
 
 ## 🎯 Store와 ViewStore
 
-## 
