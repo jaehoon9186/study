@@ -116,11 +116,11 @@ struct CounterFeature {
                 state.fact = nil
                 state.isLoading = true
 
-                return .run { [count = state.count] send in
+                return .run { [count = state.count] send in       // 캡쳐리스트로 state 캡쳐, 비동기 통신이라 시점문제 때문에 그런듯. 
                     let (data, _) = try await URLSession.shared
                               .data(from: URL(string: "http://numbersapi.com/\(count)")!)
-                    let fact = String(decoding: data, as: UTF8.self)
-                    await send(.factResponse(fact))
+                    let fact = String(decoding: data, as: UTF8.self)   
+                    await send(.factResponse(fact))               // 단순이 state를 변경하고자 하면 에러. 
                 }
 
             case let .factResponse(fact):
@@ -229,16 +229,3 @@ struct CounterView: View {
     )
 }
 ```
-
-
-
-
-
-
-# side effects 추가
-
-# 0. 
-
-# 1.
-
-# 2. 
