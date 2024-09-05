@@ -7,6 +7,7 @@
 - [https://www.youtube.com/watch?v=EuAGDhJpUN0](https://www.youtube.com/watch?v=EuAGDhJpUN0)
 - [https://www.youtube.com/watch?v=Pe7RMWrQlZw&t=1198s](https://www.youtube.com/watch?v=Pe7RMWrQlZw&t=1198s)
 - [wwdc23 / Discover Observation in SwiftUI](https://developer.apple.com/videos/play/wwdc2023/10149/)
+- [https://www.youtube.com/watch?v=xcKT_wgq_EQ](https://www.youtube.com/watch?v=xcKT_wgq_EQ)
 
 
 # iOS 17이후 ref type binding
