@@ -48,3 +48,32 @@ enum AudioDynamic: CaseIterable {
 
 
 
+```swift
+enum AudioDynamic: CaseIterable {
+    case none       
+    case normal     
+    case strong     
+
+    static let allCasesList: [Self] = Self.allCases
+
+    func next() -> Self {
+        guard let currentIndex = Self.allCasesList.firstIndex(of: self) else {
+            return self
+        }
+
+        return Self.allCasesList[(currentIndex + 1) % Self.allCasesList.count]
+    }
+}
+
+```
+
+찾은 호출이 이루어진다면 이렇게 해볼까?  
+성능적으로 어떤 이점이 있을지  
+
+static은 Data 영역에 저장되는 stack보다는 속도가 떨어지지 않나  
+
+vs  
+
+next 메서드는 자주 수행하게 될건데  
+미리 로드해 놓는것이 나을 수도 있을것?  
+
