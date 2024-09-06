@@ -71,7 +71,7 @@ enum AudioDynamic: CaseIterable {
 잦은 호출이 이루어진다면 이렇게 해볼까?  
 성능적으로 어떤 이점이 있을지  
 
-static은 Data 영역에 저장되는 stack보다는 속도가 떨어지지 않나  
+static은 Data 영역에 저장되는데 / stack보다는 속도가 떨어지지 않나  
 
 vs  
 
