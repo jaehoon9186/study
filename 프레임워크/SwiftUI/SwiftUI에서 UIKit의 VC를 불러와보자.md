@@ -1,4 +1,4 @@
-# 스유에서 유킷의 VC를 불러오자.
+# SwiftUI에서 UIKit의 VC를 불러와보자.
 
 - [https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable)
 - [https://developer.apple.com/documentation/swiftui/uiviewrepresentable](https://developer.apple.com/documentation/swiftui/uiviewrepresentable)
@@ -36,6 +36,8 @@ VM1,2 가 동일한 프로퍼티를 공유할 수 있도록 하고싶었고,
 <p align="center">
   <img width="400" src="https://github.com/user-attachments/assets/03f288f4-4113-4614-9cda-075e1db1a75b">
 </p>
+
+파란색이 SwiftUI View, 빨간색은 UiKit VC
 
 
 ```swift
