@@ -2,6 +2,9 @@
 
 - [https://stackoverflow.com/questions/76606977/swift-ist-there-any-way-using-appstorage-with-observable](https://stackoverflow.com/questions/76606977/swift-ist-there-any-way-using-appstorage-with-observable)
 
+이것도 좋은방법 일듯.
+- [https://fatbobman.com/en/posts/userdefaults-and-observation/](https://fatbobman.com/en/posts/userdefaults-and-observation/)
+
 
 현재 iOS 17 의 앱을 개발중인데. 
 
