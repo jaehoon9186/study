@@ -24,15 +24,15 @@ extension NotificationCenter {
 NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
   .receive(on: DispatchQueue.main)
   .sink { [weak self] fetch in
-      self?.updateBarViewModels() 
+      self?.updateBarViewModels() // 기존 fetch 로직활용. 
   }
   .store(in: &cancellables)
 
 ```
 
-fetch method를 구성해 뷰에 보여질 타입을 반환받는것이 일반적인 흐름인것 같은데.. 
+이하처럼 임시로 fetch 메서드를 구성해 봤는데 생각해보니 vm에 fetch용으로 구성된 메서드를 사용하면 되는것있었음.  
 
-구성하고 보니.. 
+fetch method를 구성해 뷰에 보여질 타입을 반환받는것이 일반적인 흐름인것 같긴함...   
 
 ```swift
 func fetchBars(rhythm: RhythmModel) -> [BarModel] {
@@ -68,5 +68,4 @@ func fetchBars(rhythm: RhythmModel) -> [BarModel] {
     }
 }
 ```
-
-이렇게 임시로 구성해 봤는데 생각해보니 vm에 fetch용으로 구성된 메서드가 있었다.. 나중에 다시 참고
+나중에 다시 참고해보자. 
