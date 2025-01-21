@@ -24,3 +24,53 @@ modelActor를 통해 직렬로 처리함. modelContainer의 인스턴스를 vm �
 
 
 액터를 싱글톤으로? 
+
+
+```swift
+ModelActor
+actor DataHandler {
+
+    private var context: ModelContext { modelExecutor.modelContext }
+
+    static let shared = DataHandler()
+
+    private init() {
+        let schema = Schema([
+            GroupModel.self, RhythmModel.self, BarModel.self,
+            LineModel.self, BeatModel.self, NoteModel.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelContainer =  try! ModelContainer(for: schema, configurations: modelConfiguration)
+
+        DispatchQueue.main.async {
+            modelContainer.mainContext.autosaveEnabled = false
+        }
+        
+        let modelContext = ModelContext(modelContainer)
+        self.modelExecutor = DefaultSerialModelExecutor(modelContext: modelContext)
+        self.modelContainer = modelContainer
+    }
+
+    // ...
+}
+```
+
+일단 이렇게해봄. 
+forums.developer.apple 에는 클래스로 메인액터로 싱글톤으로 햇는데.   
+
+@ModelActor 메크로를 사용하고 싶었음. 시리얼하며 여러개의 스레드를 사용할수 있어서..  
+
+@ModelActor 메크로를 채택하면 기본 구현으로 
+```swift
+init(modelContainer: SwiftData.ModelContainer) {
+    let modelContext = ModelContext(modelContainer)
+    self.modelExecutor = DefaultSerialModelExecutor(modelContext: modelContext)
+    self.modelContainer = modelContainer
+}
+```
+
+이렇게 init이 기본구현되어 있는데 이걸 싱글톤으로 구현시에 어떻게 막아야할지 모르겠음...  
+
+팩토리 패턴으로 다른 클래스로 생성하도록 하던가 해야할듯. 
+
+
