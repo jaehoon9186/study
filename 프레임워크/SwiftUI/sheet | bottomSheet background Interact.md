@@ -1,4 +1,4 @@
-# bottomSheet background Interact
+# sheet | bottomSheet background Interact.md
 
 지도 앱처럼 배경과 상호작용하는 바텀시트를 만들고 싶었음. 
 
