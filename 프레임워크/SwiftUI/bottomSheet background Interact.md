@@ -23,3 +23,15 @@
 .id 모디파이어를 사용해 해결함.  
 
 스유가 변경됬다는것을 감지할수있도록 해주고 리랜더링 될 수 있도록.  
+
+---
+
+⚠️ error 18.0+ 디바이스에서 presentationBackgroundInteraction not work. 
+- [https://www.reddit.com/r/SwiftUI/comments/1i98anc/presentationbackgroundinteraction_bugged_180_and/](https://www.reddit.com/r/SwiftUI/comments/1i98anc/presentationbackgroundinteraction_bugged_180_and/)
+
+```swift
+.presentationDetents([.fraction(0.2)])
+.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
+```
+
+같은 사이즈로 해야하는듯. 
